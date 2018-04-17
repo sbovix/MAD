@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "497365608923",
+    "firebase_url": "https://authprova-d2b94.firebaseio.com",
+    "project_id": "authprova-d2b94",
+    "storage_bucket": "authprova-d2b94.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497365608923:android:8314c8a7602159dc",
+        "android_client_info": {
+          "package_name": "com.example.silviabova.mylogin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "497365608923-ag003vseq8nqcflr6h87e4n8k7902l48.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKSxBcFwfGSt_1yJSptHmyNjKrV8B7Qx8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

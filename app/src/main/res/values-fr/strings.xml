@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_user"> Ajouter un utilisateur</string>
+    <string name="show_user"> Voir utilisateur</string>
+    <string name="login"> Se connecter</string>
+</resources>

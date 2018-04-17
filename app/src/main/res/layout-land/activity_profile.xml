@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/myBlu"
+    android:gravity="center"
+    android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
+    tools:context="com.example.silviabova.mylogin.ProfileActivity"
+    android:weightSum="10">
+
+    <TextView
+        android:id="@+id/Tv_useremail"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:layout_marginLeft="50px"
+        android:layout_marginRight="50px"
+        android:layout_marginTop="45px"
+        android:layout_weight="1"
+        android:ems="10"
+        android:gravity="center"
+        android:paddingEnd="10px"
+        android:paddingRight="10px"
+        android:text="Welcome"
+        android:textSize="30dp"
+        android:textStyle="italic"
+        android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:layout_marginTop="10px">
+
+        <ImageButton
+            android:id="@+id/setImage"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            app:srcCompat="@android:drawable/ic_menu_camera" />
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="236dp"
+            android:layout_height="254dp"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/user1" />
+
+
+        <EditText
+            android:id="@+id/Name"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="27dp"
+            android:layout_marginTop="20dp"
+            android:ems="10"
+            android:hint="Name"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/Bio"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/Name"
+            android:layout_marginTop="80dp"
+            android:ems="10"
+            android:hint="Bio"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/Age"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/Name"
+            android:layout_marginBottom="107dp"
+            android:ems="10"
+            android:hint="Age"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/Bt_save"
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="49dp"
+            android:layout_marginEnd="105dp"
+            android:autoSizeTextType="uniform"
+            android:text="save" />
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

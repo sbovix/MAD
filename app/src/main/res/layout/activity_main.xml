@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/myBlu"
+    android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="100px">
+
+    <ImageView
+        android:id="@+id/Iv_image"
+        android:layout_width="140dp"
+        android:layout_height="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="@dimen/fab_margin"
+        android:layout_marginTop="20px"
+        android:src="@drawable/libri" />
+
+    <TextView
+        android:id="@+id/text"
+        android:text="Book Sharing"
+        android:textSize="30dp"
+        android:textStyle="italic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_toEndOf="@+id/Iv_image"
+        android:layout_toRightOf="@+id/Iv_image"
+        android:layout_marginTop="100px"
+        android:layout_marginLeft="100px"
+        android:layout_marginRight="100px"/>
+
+</RelativeLayout>
+
+
+    <EditText
+        android:id="@+id/Et_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Email"
+        android:layout_marginTop="150px"
+        android:layout_marginLeft="10px"
+        android:layout_marginRight="10px"/>
+
+
+    <EditText
+        android:id="@+id/Et_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="Password"
+        android:layout_marginLeft="10px"
+        android:layout_marginRight="10px"/>
+
+
+    <Button
+        android:id="@+id/Bt_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:textStyle="normal"
+        android:autoSizeTextType="uniform"
+        android:layout_marginLeft="250px"
+        android:layout_marginRight="250px" />
+
+    <TextView
+        android:id="@+id/Tv_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/frase"
+        android:gravity="center"
+        android:layout_marginLeft="10px"
+        android:layout_marginRight="10px"/>
+
+</LinearLayout>
+

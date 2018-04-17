@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_user"> Aggiungi utente</string>
+    <string name="show_user"> Visualizza utente</string>
+    <string name="login"> Accedi</string>
+    <string name="frase" >Non hai ancora un account? Iscriviti qui</string>
+
+    <!--Do not have already an account? Signup here-->
+
+
+</resources>

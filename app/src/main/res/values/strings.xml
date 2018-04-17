@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">BookSharing</string>
+    <string name="add_user"> Add user</string>
+    <string name="show_user"> Show user</string>
+    <string name="login">Login</string>
+    <string name="Open">Open</string>
+    <string name="Close">Close</string>
+</resources>
