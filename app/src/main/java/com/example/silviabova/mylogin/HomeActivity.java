@@ -1,6 +1,8 @@
 package com.example.silviabova.mylogin;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -11,10 +13,13 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +32,9 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout drawerLayout;
@@ -38,10 +46,21 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private FirebaseAuth mAuth;
     private DatabaseReference dbReference;
 
+    private GridView gridView;
+    private ArrayList<String> imageStrings = new ArrayList<>();
+    FirebaseStorage firebaseStorage;
+    StorageReference storageReference;
+    Bitmap bitmap;
+    ArrayList<Bitmap> books;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
         drawerLayout = (DrawerLayout)findViewById(R.id.activityHome);
         mToggle = new ActionBarDrawerToggle(this, drawerLayout,R.string.Open, R.string.Close);
         drawerLayout.addDrawerListener(mToggle);
@@ -63,6 +82,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.logo);
+
+        books = new ArrayList<>();
+
+        findImage();
     }
 
     @Override
@@ -112,5 +135,52 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(HomeActivity.this, MainActivity.class));
         }
         return false;
+    }
+
+    private void findImage(){
+        final FirebaseUser user = mAuth.getCurrentUser();
+
+        dbReference=FirebaseDatabase.getInstance().getReference(""+user.getUid()+"/Books");
+        dbReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    String simage = ds.child("/image").getValue(String.class);
+
+                    simage=simage.replace("image/", "");
+                    simage=simage.trim();
+                    imageStrings.add(simage);
+                }
+
+                findImageInStorage(imageStrings);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void findImageInStorage(List<String> strings){
+        for(String s: strings){
+            final long ONE_MEGABYTE = 1024*1024;
+            storageReference.child(s).getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    books.add(bitmap);
+                    gridView= (GridView) findViewById(R.id.gridview);
+                    gridView.setAdapter(new ImageAdapterGridView(HomeActivity.this, books));
+
+                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            Toast.makeText(getBaseContext(), "Grid item "+(i+1)+ " Selected", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            });
+        }
     }
 }
