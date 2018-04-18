@@ -3,4 +3,5 @@
     <string name="add_user"> Ajouter un utilisateur</string>
     <string name="show_user"> Voir utilisateur</string>
     <string name="login"> Se connecter</string>
+    <string name="frase" >Tu n\'as pas de compte? Inscrivez-vous ici</string>
 </resources>
