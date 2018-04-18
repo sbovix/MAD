@@ -7,7 +7,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.silviabova.mylogin.HomeActivity">
-<android.support.design.widget.NavigationView
+    />
+
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="30px"
+        android:layout_height="30px"
+        app:srcCompat="@android:drawable/ic_menu_add"
+        android:layout_marginTop="450dp"
+        android:layout_marginLeft="280dp"
+        android:layout_marginRight="30dp"
+        android:background="@null"
+        android:backgroundTint="@color/CartaZucchero"/>
+
+    <android.support.design.widget.NavigationView
     app:headerLayout="@layout/header"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
@@ -15,6 +28,10 @@
     android:id="@+id/slider"
     android:layout_gravity="start"
     >
+
+
+
+
 
 </android.support.design.widget.NavigationView>
 </android.support.v4.widget.DrawerLayout>
