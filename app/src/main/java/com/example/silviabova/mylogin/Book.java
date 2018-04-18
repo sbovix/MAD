@@ -1,5 +1,7 @@
 package com.example.silviabova.mylogin;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -17,6 +19,7 @@ public class Book {
     private String extra;
     private int libri=1;
     private String imagestring;
+
 
     public String getIsbn() {
         return isbn;
@@ -91,14 +94,16 @@ public class Book {
     }
 
     public void saveBookInformation(FirebaseDatabase fb){
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
 
-        DatabaseReference myReftitle = fb.getReference("/Books/"+isbn+"/title");
-        DatabaseReference myRefauthor = fb.getReference("/Books/"+isbn+"/author");
-        DatabaseReference myRefpublisher = fb.getReference("/Books/"+isbn+"/publisher");
-        DatabaseReference myRefeditionyear= fb.getReference("/Books/"+isbn+"/edition_year");
-        DatabaseReference myRefbookcondition = fb.getReference("/Books/"+isbn+"/book_condition");
-        DatabaseReference myRefextra = fb.getReference("/Books/"+isbn+"/extra");
-        DatabaseReference myRefimage = fb.getReference("/Books/"+isbn+"/image");
+        DatabaseReference myReftitle = fb.getReference("/"+user.getUid()+"/Books/"+isbn+"/title");
+        DatabaseReference myRefauthor = fb.getReference("/"+user.getUid()+"/Books/"+isbn+"/author");
+        DatabaseReference myRefpublisher = fb.getReference("/"+user.getUid()+"/Books/"+isbn+"/publisher");
+        DatabaseReference myRefeditionyear= fb.getReference("/"+user.getUid()+"/Books/"+isbn+"/edition_year");
+        DatabaseReference myRefbookcondition = fb.getReference("/"+user.getUid()+"/Books/"+isbn+"/book_condition");
+        DatabaseReference myRefextra = fb.getReference("/"+user.getUid()+"/Books/"+isbn+"/extra");
+        DatabaseReference myRefimage = fb.getReference("/"+user.getUid()+"/Books/"+isbn+"/image");
 
         myReftitle.setValue(title);
         myRefauthor.setValue(author);
