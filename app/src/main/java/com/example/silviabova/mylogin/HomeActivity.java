@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -87,7 +88,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
                 Name.setText(sname);
 
-                Picasso.with(HomeActivity.this).load(sURL).into(UserImage);
+                Picasso.with(HomeActivity.this).load(sURL).transform((Transformation) new PicassoCircleTransformation()).into(UserImage);
             }
 
             @Override
