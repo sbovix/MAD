@@ -14,4 +14,10 @@
     <string name="W_F">Welcome</string>
     <string name="frase">Do not have already an account? Signup here</string>
     <string name="Welcome_frase">Welcome on this Book Sharing platform. Sign up with your email</string>
+    <string name="title">Title</string>
+    <string name="auth">Author</string>
+    <string name="pub">Publisher</string>
+    <string name="ed">Edition Year</string>
+    <string name="condition">Condition\'s of the book</string>
+
 </resources>

@@ -26,7 +26,7 @@
         android:layout_marginTop="20dp"
         android:layout_toEndOf="@+id/imageView"
         android:layout_toRightOf="@+id/imageView"
-        android:text="Title"
+        android:text="@string/title"
         android:textColor="#000"
         android:textSize="40dp"
         android:textStyle="bold"
@@ -49,7 +49,7 @@
         android:layout_alignLeft="@+id/isbn"
         android:layout_alignStart="@+id/isbn"
         android:layout_below="@+id/isbn"
-        android:text="Author"
+        android:text="@string/auth"
         android:textStyle="italic"
         android:textColor="#000"
         android:textSize="25dp"/>
@@ -61,7 +61,7 @@
         android:layout_alignLeft="@+id/author"
         android:layout_alignStart="@+id/author"
         android:layout_below="@+id/author"
-        android:text="Publisher"
+        android:text="@string/pub"
         android:textSize="20dp" />
 
     <TextView
@@ -71,7 +71,7 @@
         android:layout_alignLeft="@+id/publisher"
         android:layout_alignStart="@+id/publisher"
         android:layout_below="@+id/publisher"
-        android:text="Edition year"
+        android:text="@string/ed"
         android:textSize="20dp"
         />
 
@@ -89,7 +89,7 @@
             android:id="@+id/bookcondition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Book's condition"
+            android:text="@string/condition"
             android:textSize="20dp" />
     </ScrollView>
 
