@@ -3,5 +3,7 @@
     <string name="add_user"> Ajouter un utilisateur</string>
     <string name="show_user"> Voir utilisateur</string>
     <string name="login"> Se connecter</string>
+    <string name="sign">S\'inscrire</string>
     <string name="frase" >Tu n\'as pas de compte? Inscrivez-vous ici</string>
+    <string name="Welcome_frase">Bienvenue sur cette plateforme de partage de livres. Inscrivez-vous avec votre email</string>
 </resources>
