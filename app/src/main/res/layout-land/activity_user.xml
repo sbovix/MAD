@@ -37,7 +37,7 @@
 
     <TextView
         android:id="@+id/age"
-        android:layout_width="287dp"
+        android:layout_width="271dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
@@ -51,18 +51,15 @@
 
     <TextView
         android:id="@+id/bio"
-        android:layout_width="match_parent"
+        android:layout_width="272dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView2"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
         android:layout_gravity="center"
-        android:layout_marginTop="32dp"
-        android:layout_toEndOf="@+id/imageView2"
-        android:layout_toRightOf="@+id/imageView2"
+        android:layout_marginTop="82dp"
         android:text="Description:"
-        android:textSize="@dimen/fab_margin"
         android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/fab_margin"
         android:textStyle="italic">
 
     </TextView>
@@ -82,10 +79,8 @@
         android:id="@+id/imageView3"
         android:layout_width="57dp"
         android:layout_height="27dp"
-        android:layout_below="@+id/imageView2"
-        android:layout_marginTop="28dp"
-        android:layout_toLeftOf="@+id/bio"
-        android:layout_toStartOf="@+id/bio"
+        android:layout_alignTop="@+id/bio"
+        android:layout_toEndOf="@+id/relativeLayout"
         android:paddingLeft="20px"
         android:paddingRight="30px"
         android:src="@drawable/bio"
