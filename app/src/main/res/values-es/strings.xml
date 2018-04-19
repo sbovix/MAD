@@ -4,6 +4,9 @@
     <string name="show_user"> Ver usuario</string>
     <string name="login"> acceder</string>
     <string name="sign">Regístrate</string>
+    <string name="W_F">Bienvenido</string>
+    <string name="name">Nombre</string>
+    <string name="save">Salvar</string>
     <string name="frase" >¿No tienes compte? Regístrese aquí</string>
     <string name="Welcome_frase">Bienvenido a esta plataforma para compartir libros. Regístrese con su correo electrónico</string>
 </resources>

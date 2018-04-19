@@ -9,8 +9,8 @@
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
-        android:layout_width="253dp"
-        android:layout_height="250dp"
+        android:layout_width="291dp"
+        android:layout_height="match_parent"
         android:background="@color/myBlu"
         android:padding="20px">
 
@@ -26,7 +26,10 @@
             android:id="@+id/name"
             android:layout_width="246dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/Tv_UserImage"
+            android:layout_marginTop="13dp"
+            android:gravity="left"
             android:paddingTop="210dp"
             android:text="Name: "
             android:textColor="#fff"
@@ -37,7 +40,7 @@
 
     <TextView
         android:id="@+id/age"
-        android:layout_width="271dp"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
@@ -51,12 +54,12 @@
 
     <TextView
         android:id="@+id/bio"
-        android:layout_width="272dp"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_gravity="center"
-        android:layout_marginTop="82dp"
+        android:layout_marginTop="109dp"
         android:text="Description:"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/fab_margin"
@@ -66,10 +69,10 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="51dp"
+        android:layout_width="64dp"
         android:layout_height="23dp"
         android:layout_alignTop="@+id/age"
-        android:layout_toEndOf="@+id/relativeLayout"
+        android:layout_toStartOf="@+id/age"
         android:paddingLeft="20px"
         android:paddingRight="30px"
         android:src="@drawable/birth"
@@ -77,9 +80,10 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="57dp"
+        android:layout_width="62dp"
         android:layout_height="27dp"
         android:layout_alignTop="@+id/bio"
+        android:layout_marginStart="8dp"
         android:layout_toEndOf="@+id/relativeLayout"
         android:paddingLeft="20px"
         android:paddingRight="30px"

@@ -4,8 +4,11 @@
     <string name="show_user"> Show user</string>
     <string name="login">Login</string>
     <string name="sign">Sign Up</string>
+    <string name="name">Name</string>
+    <string name="save">Save</string>
     <string name="Open">Open</string>
     <string name="Close">Close</string>
+    <string name="W_F">Welcome</string>
     <string name="frase">Do not have already an account? Signup here</string>
     <string name="Welcome_frase">Welcome on this Book Sharing platform. Sign up with your email</string>
 </resources>

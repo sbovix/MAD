@@ -68,6 +68,8 @@ public class RegisterActivity extends AppCompatActivity {
         String semail = email.getText().toString().trim();
         String spassword = password.getText().toString().trim();
 
+        // Message to be shown if one of the field are missing of data
+
         if(TextUtils.isEmpty(semail)){
             //user must insert email
             Toast.makeText(this,"Please enter email",Toast.LENGTH_SHORT).show();
@@ -79,6 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
+        // This is the Creation via mail and password provided by firebase
         firebaseAuth.createUserWithEmailAndPassword(semail,spassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

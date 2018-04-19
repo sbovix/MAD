@@ -19,7 +19,7 @@
         android:layout_marginRight="50px"
         android:paddingEnd="10px"
         android:textSize="30dp"
-        android:text="Welcome"
+        android:text="@string/W_F"
         android:gravity="center"
         android:textStyle="italic"
         android:ems="10"
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="Name"
+        android:hint="@string/name"
         android:layout_marginTop="80px"
         android:layout_marginLeft="30px"
         android:layout_marginRight="30px"/>
@@ -85,7 +85,7 @@
         android:layout_marginTop="80px"
         android:layout_marginLeft="150px"
         android:layout_marginRight="150px"
-        android:text="save"
+        android:text="@string/save"
         android:autoSizeTextType="uniform"/>
 
 </LinearLayout>
