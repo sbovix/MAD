@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText Et_email;
     private Button login;
     private TextView registerLink;
+    private EditText Myvariable;
 
     private FirebaseAuth MfirebaseAuth;
 
