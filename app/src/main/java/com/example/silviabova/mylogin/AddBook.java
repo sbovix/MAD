@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -34,7 +35,7 @@ import java.util.UUID;
 
 public class AddBook extends AppCompatActivity {
     private EditText isbn, title, author, publisher, edition_year, extra;
-    private Button register, back;
+    private Button register;
     private ImageButton buttonLoadImage;
     private ImageView image1, image2;
     private static final int CAMERA=1;
@@ -55,14 +56,6 @@ public class AddBook extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 registerBook(view);
-            }
-        });
-
-        back = findViewById(R.id.Bt_back);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
             }
         });
 
@@ -223,5 +216,13 @@ public class AddBook extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    //back button in the navigation bar
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
+
     }
 }
