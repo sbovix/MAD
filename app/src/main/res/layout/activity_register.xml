@@ -39,11 +39,11 @@
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10px"
+        android:layout_marginRight="10px"
         android:ems="10"
-        android:inputType="textPassword"
         android:hint="Password"
-        android:layout_marginLeft="30px"
-        android:layout_marginRight="10px"/>
+        android:inputType="textPassword" />
 
 
     <Button
