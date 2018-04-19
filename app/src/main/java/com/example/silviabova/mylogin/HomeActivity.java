@@ -52,6 +52,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     private GridView gridView;
     private ArrayList<String> imageStrings = new ArrayList<>();
+    private ArrayList<String> isbn= new ArrayList<>();
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
     Bitmap bitmap;
@@ -90,6 +91,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         books = new ArrayList<>();
 
+        firebaseStorage = FirebaseStorage.getInstance();
+        storageReference = firebaseStorage.getReference("image/");
+
         findImage();
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +101,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 showPictureDialog();
             }
         });
+
+
 
     }
 
@@ -158,16 +164,19 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     String simage = ds.child("/image").getValue(String.class);
+                    String sisbn = ds.getKey();
                     if(simage!=null){
                         simage=simage.replace("image/", "");
                         simage=simage.trim();
                         imageStrings.add(simage);
                     }
+                    if(sisbn!=null){
+                        isbn.add(sisbn);
+                    }
 
 
                 }
-
-                findImageInStorage(imageStrings);
+                findImageInStorage(imageStrings, isbn);
             }
 
             @Override
@@ -177,9 +186,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
-    private void findImageInStorage(List<String> strings) {
+    private void findImageInStorage(List<String> strings, List<String> isbn) {
         for (String s : strings) {
             final long ONE_MEGABYTE = 1024 * 1024;
+            final List<String> isbn2 = isbn.subList(0,isbn.size());
             storageReference.child(s).getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                 @Override
                 public void onSuccess(byte[] bytes) {
@@ -192,6 +202,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                             Toast.makeText(getBaseContext(), "Grid item " + (i + 1) + " Selected", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(HomeActivity.this, BookDetails.class);
+                            intent.putExtra("ISBN", isbn2.get(i));
+                            startActivity(intent);
                         }
                     });
                 }
