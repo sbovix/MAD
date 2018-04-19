@@ -1,9 +1,11 @@
 package com.example.silviabova.mylogin;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -66,6 +68,9 @@ public class BookDetails extends AppCompatActivity {
         storageReference = FirebaseStorage.getInstance().getReference("image/");
 
         getBookInformation(isbn);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     private void getBookInformation(String isbn){
@@ -90,7 +95,9 @@ public class BookDetails extends AppCompatActivity {
                 edyear.setText(""+sedyear);
                 condition.setText(scond);
 
-                findImageInStorage(simage);
+                if(simage != null) {
+                    findImageInStorage(simage);
+                }
 
             }
 
@@ -110,5 +117,13 @@ public class BookDetails extends AppCompatActivity {
                 image.setImageBitmap(bitmap);
             }
         });
+    }
+
+    //back button on the navigation bar
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
+
     }
 }
