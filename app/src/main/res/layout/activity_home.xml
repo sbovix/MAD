@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbarStyle="insideOverlay">
-
     </ScrollView>
 
     <GridView
@@ -36,7 +35,7 @@
         android:layout_marginTop="450dp"
         android:layout_marginLeft="280dp"
         android:layout_marginRight="30dp"
-        android:background="null"
+        android:background="@null"
         android:backgroundTint="@color/CartaZucchero" />
 
     <android.support.design.widget.NavigationView
@@ -47,10 +46,6 @@
     android:id="@+id/slider"
     android:layout_gravity="start"
     >
-
-
-
-
 
 </android.support.design.widget.NavigationView>
 </android.support.v4.widget.DrawerLayout>

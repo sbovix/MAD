@@ -34,9 +34,13 @@
         <activity
             android:name=".UserActivity"
             android:label="My Profile" />
-        <activity android:name=".HomeActivity"
-            android:label="My Library">
-        </activity>
+        <activity
+            android:name=".HomeActivity"
+            android:label="My Library"></activity>
+        <activity
+            android:name=".AddBook"
+            android:label="Add Book"></activity>
+        <activity android:name=".BookDetails"></activity>
     </application>
 
 </manifest>

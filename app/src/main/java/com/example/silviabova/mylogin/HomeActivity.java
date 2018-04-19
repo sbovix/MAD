@@ -1,5 +1,6 @@
 package com.example.silviabova.mylogin;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,6 +9,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -15,6 +17,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,12 +45,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     private ImageView UserImage;
     private TextView Name;
+    private ImageButton add;
 
     private FirebaseAuth mAuth;
     private DatabaseReference dbReference;
 
     private GridView gridView;
     private ArrayList<String> imageStrings = new ArrayList<>();
+    private ArrayList<String> isbn= new ArrayList<>();
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
     Bitmap bitmap;
@@ -75,6 +80,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         UserImage = (ImageView) header.findViewById(R.id.HUserImage);
         Name = (TextView) header.findViewById(R.id.Name);
+        add = (ImageButton) findViewById(R.id.imageButton);
 
         showUserImageName();
 
@@ -85,7 +91,19 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         books = new ArrayList<>();
 
+        firebaseStorage = FirebaseStorage.getInstance();
+        storageReference = firebaseStorage.getReference("image/");
+
         findImage();
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPictureDialog();
+            }
+        });
+
+
+
     }
 
     @Override
@@ -146,13 +164,19 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     String simage = ds.child("/image").getValue(String.class);
+                    String sisbn = ds.getKey();
+                    if(simage!=null){
+                        simage=simage.replace("image/", "");
+                        simage=simage.trim();
+                        imageStrings.add(simage);
+                    }
+                    if(sisbn!=null){
+                        isbn.add(sisbn);
+                    }
 
-                    simage=simage.replace("image/", "");
-                    simage=simage.trim();
-                    imageStrings.add(simage);
+
                 }
-
-                findImageInStorage(imageStrings);
+                findImageInStorage(imageStrings, isbn);
             }
 
             @Override
@@ -162,25 +186,55 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         });
     }
 
-    private void findImageInStorage(List<String> strings){
-        for(String s: strings){
-            final long ONE_MEGABYTE = 1024*1024;
+    private void findImageInStorage(List<String> strings, List<String> isbn) {
+        for (String s : strings) {
+            final long ONE_MEGABYTE = 1024 * 1024;
+            final List<String> isbn2 = isbn.subList(0,isbn.size());
             storageReference.child(s).getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                 @Override
                 public void onSuccess(byte[] bytes) {
                     bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                     books.add(bitmap);
-                    gridView= (GridView) findViewById(R.id.gridview);
+                    gridView = (GridView) findViewById(R.id.gridview);
                     gridView.setAdapter(new ImageAdapterGridView(HomeActivity.this, books));
 
                     gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            Toast.makeText(getBaseContext(), "Grid item "+(i+1)+ " Selected", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getBaseContext(), "Grid item " + (i + 1) + " Selected", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(HomeActivity.this, BookDetails.class);
+                            intent.putExtra("ISBN", isbn2.get(i));
+                            startActivity(intent);
                         }
                     });
                 }
             });
         }
+    }
+
+    private void showPictureDialog() {
+        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
+        pictureDialog.setTitle("Select Action");
+        String[] pictureDialogItems = {
+                "Insert book",
+                "Scan ISBN"};
+        pictureDialog.setItems(pictureDialogItems,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                //chiama registra manualmente
+                                finish();
+                                startActivity(new Intent(HomeActivity.this,AddBook.class));
+                                break;
+                            case 1:
+                                //scanning
+                                break;
+                        }
+                    }
+                });
+        pictureDialog.show();
+
     }
 }
