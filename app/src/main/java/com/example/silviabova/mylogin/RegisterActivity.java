@@ -56,6 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    //back button on the navigation bar
     public boolean onOptionsItemSelected(MenuItem item){
         Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
         startActivityForResult(myIntent, 0);
