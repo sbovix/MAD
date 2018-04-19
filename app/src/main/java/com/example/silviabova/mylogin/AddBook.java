@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -33,7 +34,7 @@ import java.util.UUID;
 
 public class AddBook extends AppCompatActivity {
     private EditText isbn, title, author, publisher, edition_year, extra;
-    private Button register, back, show;
+    private Button register, back;
     private ImageButton buttonLoadImage;
     private ImageView image1, image2;
     private static final int CAMERA=1;
@@ -74,14 +75,14 @@ public class AddBook extends AppCompatActivity {
         });
         storage = FirebaseStorage.getInstance();
 
-        show = findViewById(R.id.Bt_show);
-        show.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AddBook.this, HomeActivity.class);
-                startActivity(intent);
-            }
-        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //elimina la barra sopra
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        //permette di mostrare il logo
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.logo);
     }
 
     private void showPictureDialog(){
