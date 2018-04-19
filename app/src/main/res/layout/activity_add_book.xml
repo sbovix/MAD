@@ -4,22 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.silviabova.mylogin.AddBook"
     android:padding="5dp"
-    android:gravity="center"
+    tools:context="com.example.silviabova.mylogin.AddBook"
     android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="Insert your book and his condition"
+        android:layout_height="wrap_content"
+        android:text="Insert your book and its condition"
         android:textStyle="italic"
         android:paddingLeft="20dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="157dp">
+        android:layout_height="157dp"
+        android:padding="10dp">
 
         <ImageButton
             android:id="@+id/Ib_set_image"
@@ -37,16 +37,6 @@
             android:layout_centerHorizontal="true"
             android:src="@drawable/iconbook" />
 
-
-        <Button
-            android:id="@+id/Bt_back"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="9dp"
-            android:layout_toEndOf="@+id/Iv_image"
-            android:layout_toRightOf="@+id/Iv_image"
-            android:background="#ffc1dd"
-            android:text="Back" />
 
     </RelativeLayout>
 
@@ -114,11 +104,12 @@
     <Button
         android:id="@+id/Bt_register"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:text="Save"
+        android:layout_marginTop="10dp"
         android:background="@color/CartaZucchero"
         android:textColor="#ffff"
         android:layout_marginLeft="100dp"
