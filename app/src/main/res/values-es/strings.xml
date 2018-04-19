@@ -6,6 +6,9 @@
     <string name="sign">Regístrate</string>
     <string name="W_F">Bienvenido</string>
     <string name="name">Nombre</string>
+    <string name="I_name">Nombre: </string>
+    <string name="I_birth">Compleanos: </string>
+    <string name="I_info">Descripción: </string>
     <string name="save">Salvar</string>
     <string name="frase" >¿No tienes compte? Regístrese aquí</string>
     <string name="Welcome_frase">Bienvenido a esta plataforma para compartir libros. Regístrese con su correo electrónico</string>

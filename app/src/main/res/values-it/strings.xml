@@ -5,7 +5,10 @@
     <string name="login"> Accedi</string>
     <string name="sign">Registrati</string>
     <string name="name">Nome</string>
+    <string name="I_name">Nome: </string>
     <string name="save">Salvare</string>
+    <string name="I_birth">Compleanno: </string>
+    <string name="I_info">Descrizione: </string>
     <string name="W_F">Benvenuto</string>
     <string name="frase" >Non hai ancora un account? Iscriviti qui</string>
     <string name="Welcome_frase">Benvenuto su questa piattaforma di Book Sharing. Iscriviti con la tua email</string>

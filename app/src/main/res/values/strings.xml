@@ -5,6 +5,9 @@
     <string name="login">Login</string>
     <string name="sign">Sign Up</string>
     <string name="name">Name</string>
+    <string name="I_name">Name: </string>
+    <string name="I_birth">Birthday: </string>
+    <string name="I_info">Description: </string>
     <string name="save">Save</string>
     <string name="Open">Open</string>
     <string name="Close">Close</string>

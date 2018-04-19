@@ -5,6 +5,9 @@
     <string name="login"> Se connecter</string>
     <string name="sign">S\'inscrire</string>
     <string name="name">Prenom</string>
+    <string name="I_name">Prenom: </string>
+    <string name="I_birth">Anniversaire: </string>
+    <string name="I_info">Description: </string>
     <string name="save">Enregistrer</string>
     <string name="W_F">Bienvenue</string>
     <string name="frase" >Tu n\'as pas de compte? Inscrivez-vous ici</string>
