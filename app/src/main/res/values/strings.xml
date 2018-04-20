@@ -3,14 +3,15 @@
     <string name="add_user"> Add user</string>
     <string name="show_user"> Show user</string>
     <string name="login">Login</string>
-    <string name="sign">Sign Up</string>
-    <string name="name">Name</string>
-    <string name="I_name">Name: </string>
-    <string name="I_birth">Birthday: </string>
-    <string name="I_info">Description: </string>
-    <string name="save">Save</string>
     <string name="Open">Open</string>
     <string name="Close">Close</string>
+
+    <string name="frase">Aggiungi nuovo</string>
+    <string name="scan">Scan a Book</string>
+    <string name="thumb">Book thumbnail</string>
+    <string name="pre">Preview</string>
+    <string name="link">Web</string>
+
     <string name="W_F">Welcome</string>
     <string name="frase">Do not have already an account? Signup here</string>
     <string name="Welcome_frase">Welcome on this Book Sharing platform. Sign up with your email</string>
