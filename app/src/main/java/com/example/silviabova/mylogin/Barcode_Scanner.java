@@ -9,14 +9,17 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -46,6 +49,9 @@ public class Barcode_Scanner extends AppCompatActivity implements OnClickListene
     private ImageView thumbView;
     private ImageView[] starViews;
     private Bitmap thumbImg;
+    //private Book book;
+
+    //private String title,author,edyear,isbn,image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,8 +104,14 @@ public class Barcode_Scanner extends AppCompatActivity implements OnClickListene
             previewBtn.setVisibility(View.VISIBLE);
         }
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //elimina la barra sopra
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        //permette di mostrare il logo
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.logo);
 
     }
 
@@ -127,6 +139,11 @@ public class Barcode_Scanner extends AppCompatActivity implements OnClickListene
             Intent intent = new Intent(this, EmbeddedBook.class);
             intent.putExtra("isbn", tag);
             startActivity(intent);
+        }
+        else if(v.getId()==R.id.save){
+            FirebaseDatabase db = FirebaseDatabase.getInstance();
+            //book.setIsbn((String)v.getTag());
+            //book.saveBookInformation(db);
         }
 
     }
@@ -216,7 +233,9 @@ public class Barcode_Scanner extends AppCompatActivity implements OnClickListene
                 JSONObject bookObject = bookArray.getJSONObject(0);
                 JSONObject volumeObject = bookObject.getJSONObject("volumeInfo");
 
-                try{ titleText.setText("TITLE: "+volumeObject.getString("title")); }
+                try{ titleText.setText("TITLE: "+volumeObject.getString("title"));
+                    //book.setTitle(volumeObject.getString("title"));
+                    }
                 catch(JSONException jse){
                     titleText.setText("");
                     jse.printStackTrace();
@@ -228,16 +247,22 @@ public class Barcode_Scanner extends AppCompatActivity implements OnClickListene
                     JSONArray authorArray = volumeObject.getJSONArray("authors");
                     for(int a=0; a<authorArray.length(); a++){
                         if(a>0) authorBuild.append(", ");
-                        authorBuild.append(authorArray.getString(a));
+                        //authorBuild.append(authorArray.getString(a));
                     }
                     authorText.setText("AUTHOR(S): "+authorBuild.toString());
+                    //book.setAuthor(authorBuild.toString());
                 }
                 catch(JSONException jse){
                     authorText.setText("");
                     jse.printStackTrace();
                 }
 
-                try{ dateText.setText("PUBLISHED: "+volumeObject.getString("publishedDate")); }
+                try{ dateText.setText("PUBLISHED: "+volumeObject.getString("publishedDate"));
+//                    edyear = volumeObject.getString("publishedDate");
+//                    edyear = edyear.trim();
+//                    edyear= edyear.substring(0,3);
+//                    book.setEdition_year(Integer.parseInt(edyear));
+                    }
                 catch(JSONException jse){
                     dateText.setText("");
                     jse.printStackTrace();
@@ -355,21 +380,28 @@ public class Barcode_Scanner extends AppCompatActivity implements OnClickListene
     }
 
     protected void onSaveInstanceState(Bundle savedBundle) {
-        savedBundle.putString("title", ""+titleText.getText());
-        savedBundle.putString("author", ""+authorText.getText());
-        savedBundle.putString("description", ""+descriptionText.getText());
-        savedBundle.putString("date", ""+dateText.getText());
-        savedBundle.putString("ratings", ""+ratingCountText.getText());
+        super.onSaveInstanceState(savedBundle);
+        savedBundle.putString("title", "" + titleText.getText());
+        savedBundle.putString("author", "" + authorText.getText());
+        savedBundle.putString("description", "" + descriptionText.getText());
+        savedBundle.putString("date", "" + dateText.getText());
+        savedBundle.putString("ratings", "" + ratingCountText.getText());
         savedBundle.putParcelable("thumbPic", thumbImg);
-        if(starLayout.getTag()!=null)
+        if (starLayout.getTag() != null)
             savedBundle.putInt("stars", Integer.parseInt(starLayout.getTag().toString()));
         savedBundle.putBoolean("isEmbed", previewBtn.isEnabled());
         savedBundle.putInt("isLink", linkBtn.getVisibility());
-        if(previewBtn.getTag()!=null)
+        if (previewBtn.getTag() != null)
             savedBundle.putString("isbn", previewBtn.getTag().toString());
     }
 
+    //back button on the navigation bar
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
 
+    }
 
 }
 

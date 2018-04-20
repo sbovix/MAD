@@ -109,7 +109,7 @@ public class BookDetails extends AppCompatActivity {
     }
 
     public void findImageInStorage(String simage){
-        final long ONE_MEGABYTE = 1024 * 1024;
+        final long ONE_MEGABYTE = 1024 * 1024 * 1024;
         storageReference.child(simage).getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
