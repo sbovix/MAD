@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.silviabova.mylogin">
 
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -36,11 +37,18 @@
             android:label="My Profile" />
         <activity
             android:name=".HomeActivity"
-            android:label="My Library"></activity>
+            android:label="My Library" />
         <activity
             android:name=".AddBook"
-            android:label="Add Book"></activity>
-        <activity android:name=".BookDetails"></activity>
+            android:label="Add Book" />
+        <activity android:name=".BookDetails" />
+        <activity
+            android:name=".Barcode_Scanner"
+            android:label="Barcode Scanner"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".EmbeddedBook"/>
+
     </application>
 
 </manifest>

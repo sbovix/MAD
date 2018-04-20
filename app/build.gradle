@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
+    useLibrary 'org.apache.http.legacy'
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.example.silviabova.mylogin"
@@ -33,5 +34,10 @@ dependencies {
     compile 'com.google.firebase:firebase-storage:15.0.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.android.support:design:26.1.0'
+    compile('org.apache.httpcomponents:httpmime:4.3.6') {
+        exclude module: 'httpclient'
+    }
+    compile 'org.apache.httpcomponents:httpclient-android:4.3.5'
+
 }
 apply plugin: 'com.google.gms.google-services'
