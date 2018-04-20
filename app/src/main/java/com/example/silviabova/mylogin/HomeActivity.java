@@ -230,6 +230,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                                 break;
                             case 1:
                                 //scanning
+                                finish();
+                                startActivity(new Intent(HomeActivity.this, Barcode_Scanner.class));
                                 break;
                         }
                     }
