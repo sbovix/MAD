@@ -12,4 +12,10 @@
     <string name="save">Salvar</string>
     <string name="frase" >¿No tienes compte? Regístrese aquí</string>
     <string name="Welcome_frase">Bienvenido a esta plataforma para compartir libros. Regístrese con su correo electrónico</string>
+    <string name="title">Título</string>
+    <string name="auth">Autor</string>
+    <string name="pub">Editor</string>
+    <string name="ed">Año de edición</string>
+    <string name="condition">Conditions du livre</string>
+
 </resources>

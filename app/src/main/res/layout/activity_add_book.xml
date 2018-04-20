@@ -18,7 +18,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="157dp"
+        android:layout_height="171dp"
         android:padding="10dp">
 
         <ImageButton
@@ -43,72 +43,78 @@
     <EditText
         android:id="@+id/isbn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="ISBN"
+        android:layout_height="40dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="ISBN"
+        android:textColor="@android:color/black"
         android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:ems="10"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Title"
+        android:hint="@string/title"
+        android:textColor="@android:color/black"
         android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/author"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:ems="10"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Author"
+        android:hint="@string/auth"
+        android:textColor="@android:color/black"
         android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/publisher"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:ems="10"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Publisher"
+        android:hint="@string/pub"
+        android:textColor="@android:color/black"
         android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/ey"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:ems="10"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Edition Year"
+        android:hint="@string/ed"
+        android:textColor="@android:color/black"
         android:inputType="number" />
 
     <EditText
         android:id="@+id/extra"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:ems="10"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:hint="Extra details about book's condition"
+        android:hint="@string/condition"
+        android:textColor="@android:color/black"
         android:inputType="textMultiLine" />
 
     <Button
         android:id="@+id/Bt_register"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="30dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:text="Save"
+        android:text="@string/save"
         android:layout_marginTop="10dp"
         android:background="@color/CartaZucchero"
         android:textColor="#ffff"

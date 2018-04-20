@@ -12,4 +12,9 @@
     <string name="W_F">Bienvenue</string>
     <string name="frase" >Tu n\'as pas de compte? Inscrivez-vous ici</string>
     <string name="Welcome_frase">Bienvenue sur cette plateforme de partage de livres. Inscrivez-vous avec votre email</string>
+    <string name="title">Titre</string>
+    <string name="auth">Auteur</string>
+    <string name="pub">Éditeur</string>
+    <string name="ed">Année d\'édition</string>
+    <string name="condition">Condiciones del libro</string>
 </resources>

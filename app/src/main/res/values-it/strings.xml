@@ -12,6 +12,11 @@
     <string name="W_F">Benvenuto</string>
     <string name="frase" >Non hai ancora un account? Iscriviti qui</string>
     <string name="Welcome_frase">Benvenuto su questa piattaforma di Book Sharing. Iscriviti con la tua email</string>
+    <string name="title">Titolo</string>
+    <string name="auth">Autore</string>
+    <string name="pub">Editore</string>
+    <string name="ed">Anno di pubblicazione</string>
+    <string name="condition">Condizioni del libro</string>
 
 
 </resources>
