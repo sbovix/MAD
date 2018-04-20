@@ -47,6 +47,7 @@
             android:layout_alignTop="@+id/Ib_set_image"
             android:ems="10"
             android:hint="ISBN"
+            android:textColor="@android:color/black"
             android:inputType="textPersonName" />
 
         <EditText
@@ -57,6 +58,7 @@
             android:layout_below="@+id/isbn"
             android:ems="10"
             android:hint="@string/title"
+            android:textColor="@android:color/black"
             android:inputType="textPersonName" />
 
 
@@ -79,6 +81,7 @@
             android:layout_alignStart="@+id/extra"
             android:ems="10"
             android:hint="@string/ed"
+            android:textColor="@android:color/black"
             android:inputType="number" />
 
         <EditText
@@ -99,6 +102,7 @@
             android:layout_below="@+id/title"
             android:ems="10"
             android:hint="@string/auth"
+            android:textColor="@android:color/black"
             android:inputType="textPersonName" />
 
         <Button

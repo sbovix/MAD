@@ -30,7 +30,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="Email"
-        android:layout_marginTop="300px"
+        android:layout_marginTop="70px"
         android:layout_marginLeft="10px"
         android:layout_marginRight="10px"/>
 

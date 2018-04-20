@@ -44,11 +44,12 @@
         android:id="@+id/isbn"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:ems="10"
-        android:hint="ISBN"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="ISBN"
+        android:textColor="@android:color/black"
         android:inputType="textPersonName" />
 
     <EditText
@@ -59,6 +60,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:hint="@string/title"
+        android:textColor="@android:color/black"
         android:inputType="textPersonName" />
 
     <EditText
@@ -69,6 +71,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:hint="@string/auth"
+        android:textColor="@android:color/black"
         android:inputType="textPersonName" />
 
     <EditText
@@ -79,6 +82,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:hint="@string/pub"
+        android:textColor="@android:color/black"
         android:inputType="textPersonName" />
 
     <EditText
@@ -89,6 +93,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:hint="@string/ed"
+        android:textColor="@android:color/black"
         android:inputType="number" />
 
     <EditText
@@ -99,6 +104,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:hint="@string/condition"
+        android:textColor="@android:color/black"
         android:inputType="textMultiLine" />
 
     <Button
