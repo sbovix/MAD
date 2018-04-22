@@ -6,8 +6,7 @@
     android:id="@+id/activityHome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.silviabova.mylogin.HomeActivity"
-    android:padding="10dp">
+    tools:context="com.example.silviabova.mylogin.HomeActivity">
     />
 
     <ScrollView
@@ -23,7 +22,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="12dp"
+        android:gravity="center"
+        android:foregroundGravity="center"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="12dp"
         android:numColumns="auto_fit"/>
