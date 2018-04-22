@@ -1,25 +1,34 @@
 package com.example.silviabova.mylogin;
 
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -35,23 +44,28 @@ import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.UUID;
 
 
 public class Barcode_Scanner extends AppCompatActivity implements OnClickListener {
 
-    private Button scanBtn, previewBtn, linkBtn;
+    private Button scanBtn, previewBtn, linkBtn,save;
     private TextView authorText, titleText, descriptionText, dateText, ratingCountText;
     private LinearLayout starLayout;
     private ImageView thumbView;
     private ImageView[] starViews;
     private Bitmap thumbImg;
-    //private Book book;
-
-    //private String title,author,edyear,isbn,image;
+    private Book book = new Book();
+    private FirebaseDatabase db = FirebaseDatabase.getInstance();
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    private String title,author,edyear,image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +80,8 @@ public class Barcode_Scanner extends AppCompatActivity implements OnClickListene
         linkBtn = (Button)findViewById(R.id.link_btn);
         linkBtn.setVisibility(View.GONE);
         linkBtn.setOnClickListener(this);
+        save= (Button)findViewById(R.id.save);
+        save.setOnClickListener(this);
 
         authorText = (TextView)findViewById(R.id.book_author);
         titleText = (TextView)findViewById(R.id.book_title);
@@ -113,6 +129,8 @@ public class Barcode_Scanner extends AppCompatActivity implements OnClickListene
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.logo);
 
+
+
     }
 
     public void onClick(View v){
@@ -141,9 +159,9 @@ public class Barcode_Scanner extends AppCompatActivity implements OnClickListene
             startActivity(intent);
         }
         else if(v.getId()==R.id.save){
-            FirebaseDatabase db = FirebaseDatabase.getInstance();
-            //book.setIsbn((String)v.getTag());
-            //book.saveBookInformation(db);
+            book.saveBookInformation(db);
+            finish();
+            startActivity(new Intent(this,HomeActivity.class));
         }
 
     }
@@ -168,6 +186,7 @@ public class Barcode_Scanner extends AppCompatActivity implements OnClickListene
                 String bookSearchString = "https://www.googleapis.com/books/v1/volumes?"+
                         "q=isbn:"+scanContent+"&key=AIzaSyB1fFpEBdfzQgE1uA8wYbL9VSczIle8q20";
                 new GetBookInfo().execute(bookSearchString);
+                book.setIsbn(scanContent);
             }
             else{
                 Toast toast = Toast.makeText(getApplicationContext(),
@@ -234,10 +253,12 @@ public class Barcode_Scanner extends AppCompatActivity implements OnClickListene
                 JSONObject volumeObject = bookObject.getJSONObject("volumeInfo");
 
                 try{ titleText.setText("TITLE: "+volumeObject.getString("title"));
-                    //book.setTitle(volumeObject.getString("title"));
+                    title = volumeObject.getString("title");
+                    book.setTitle(title);
                     }
                 catch(JSONException jse){
                     titleText.setText("");
+                    book.setTitle("");
                     jse.printStackTrace();
                 }
 
@@ -247,30 +268,34 @@ public class Barcode_Scanner extends AppCompatActivity implements OnClickListene
                     JSONArray authorArray = volumeObject.getJSONArray("authors");
                     for(int a=0; a<authorArray.length(); a++){
                         if(a>0) authorBuild.append(", ");
-                        //authorBuild.append(authorArray.getString(a));
+                        authorBuild.append(authorArray.getString(a));
                     }
                     authorText.setText("AUTHOR(S): "+authorBuild.toString());
-                    //book.setAuthor(authorBuild.toString());
+                    author = authorBuild.toString();
+                    book.setAuthor(author);
                 }
                 catch(JSONException jse){
                     authorText.setText("");
+                    book.setAuthor("");
                     jse.printStackTrace();
                 }
 
                 try{ dateText.setText("PUBLISHED: "+volumeObject.getString("publishedDate"));
-//                    edyear = volumeObject.getString("publishedDate");
-//                    edyear = edyear.trim();
-//                    edyear= edyear.substring(0,3);
-//                    book.setEdition_year(Integer.parseInt(edyear));
+                    edyear = volumeObject.getString("publishedDate");
+                    edyear = edyear.trim();
+                    edyear= edyear.substring(0,4);
+                    book.setEdition_year(Integer.parseInt(edyear));
                     }
                 catch(JSONException jse){
                     dateText.setText("");
+                    book.setEdition_year(Integer.parseInt(""));
                     jse.printStackTrace();
                 }
 
                 try{ descriptionText.setText("DESCRIPTION: "+volumeObject.getString("description")); }
                 catch(JSONException jse){
                     descriptionText.setText("");
+
                     jse.printStackTrace();
                 }
 
@@ -320,12 +345,15 @@ public class Barcode_Scanner extends AppCompatActivity implements OnClickListene
                 try{
                     JSONObject imageInfo = volumeObject.getJSONObject("imageLinks");
                     new GetBookThumb().execute(imageInfo.getString("smallThumbnail"));
+
+                    //Get image address in string and save in book data
+                    image = "image/"+ UUID.randomUUID().toString();
+                    book.setImagestring(image);
                 }
                 catch(JSONException jse){
                     thumbView.setImageBitmap(null);
                     jse.printStackTrace();
                 }
-
 
             }
             catch (Exception e) {
@@ -362,7 +390,6 @@ public class Barcode_Scanner extends AppCompatActivity implements OnClickListene
 
                 thumbBuff.close();
                 thumbIn.close();
-
             }
             catch(Exception e) {
                 e.printStackTrace();
@@ -374,6 +401,32 @@ public class Barcode_Scanner extends AppCompatActivity implements OnClickListene
 
         protected void onPostExecute(String result) {
             thumbView.setImageBitmap(thumbImg);
+
+
+            // Get the data from an ImageView as bytes
+            StorageReference ref = storage.getReference(image);
+            thumbView.setDrawingCacheEnabled(true);
+            thumbView.buildDrawingCache();
+            Bitmap bitmap = thumbView.getDrawingCache();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            byte[] data = baos.toByteArray();
+
+            UploadTask uploadTask = ref.putBytes(data);
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+                    Toast.makeText(Barcode_Scanner.this,exception.getMessage(),Toast.LENGTH_SHORT).show();
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                    //Toast.makeText(Barcode_Scanner.this,"Uploaded image",Toast.LENGTH_SHORT).show();
+                }
+            });
+
         }
 
 
@@ -402,6 +455,5 @@ public class Barcode_Scanner extends AppCompatActivity implements OnClickListene
         return true;
 
     }
-
 }
 
