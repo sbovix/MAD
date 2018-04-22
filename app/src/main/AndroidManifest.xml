@@ -46,7 +46,8 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="Barcode Scanner" />
         <activity android:name=".EmbeddedBook" />
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".SearchActivity"
+            android:label=" "></activity>
     </application>
 
 </manifest>
