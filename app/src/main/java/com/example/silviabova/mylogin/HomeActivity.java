@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -108,8 +109,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
         if(mToggle.onOptionsItemSelected(item)){
             return true;
+        }
+        if (id == R.id.search_bar){
+            //aprire Activity di ricerca
+            finish();
+            startActivity(new Intent(HomeActivity.this, SearchActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
@@ -239,4 +246,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         pictureDialog.show();
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_home, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
 }

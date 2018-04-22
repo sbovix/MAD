@@ -38,6 +38,7 @@ dependencies {
         exclude module: 'httpclient'
     }
     compile 'org.apache.httpcomponents:httpclient-android:4.3.5'
+    compile 'com.miguelcatalan:materialsearchview:1.4.0'
 
 }
 apply plugin: 'com.google.gms.google-services'
