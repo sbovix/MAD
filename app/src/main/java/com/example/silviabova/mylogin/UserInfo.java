@@ -6,10 +6,10 @@ package com.example.silviabova.mylogin;
 
 public class UserInfo {
 
-    public String name;
-    public String bio;
-    public String age;
-    public String URLimage;
+    private String name;
+    private String bio;
+    private String age;
+    private String URLimage;
 
     public UserInfo(String name,String bio, String age, String URLimage){
         this.name = name;
