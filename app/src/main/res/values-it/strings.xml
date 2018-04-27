@@ -20,4 +20,15 @@
     <string name="scan">Scannerizzare un libro</string>
 
 
+    <string-array name ="field">
+
+        <item name="title"> Titolo</item>
+        <item> Autore</item>
+        <item> Anno</item>
+        <item> Editore</item>
+        <item> Condizioni</item>
+
+    </string-array>
+
+
 </resources>

@@ -19,4 +19,16 @@
     <string name="condition">Conditions du livre</string>
     <string name="scan">Escanear un libro</string>
 
+
+
+    <string-array name ="field">
+
+        <item> Título</item>
+        <item> Autor</item>
+        <item> Año de edición</item>
+        <item> Editor</item>
+        <item> Conditions </item>
+
+    </string-array>
+
 </resources>

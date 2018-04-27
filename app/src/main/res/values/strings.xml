@@ -11,6 +11,8 @@
     <string name="thumb">Book thumbnail</string>
     <string name="pre">Preview</string>
     <string name="link">Web</string>
+    <string name="I_birth">Birthday: </string>
+    <string name="I_info">Description: </string>
 
     <string name="W_F">Welcome</string>
     <string name="frase">Do not have already an account? Signup here</string>
@@ -21,5 +23,17 @@
     <string name="ed">Edition Year</string>
     <string name="condition">Condition\'s of the book</string>
     <string name="save">Salva</string>
+
+
+
+    <string-array name ="field">
+
+        <item name="title"> Title</item>
+        <item> Author</item>
+        <item> Year</item>
+        <item> Publisher</item>
+        <item> Condition</item>
+
+    </string-array>
 
 </resources>
