@@ -20,5 +20,6 @@
     <string name="pub">Publisher</string>
     <string name="ed">Edition Year</string>
     <string name="condition">Condition\'s of the book</string>
+    <string name="save">Salva</string>
 
 </resources>

@@ -17,4 +17,7 @@
     <string name="pub">Éditeur</string>
     <string name="ed">Année d\'édition</string>
     <string name="condition">Condiciones del libro</string>
+    <string name="scan">Scanner un livre</string>
+
+
 </resources>
