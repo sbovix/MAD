@@ -36,18 +36,11 @@
             android:label="My Profile" />
         <activity
             android:name=".HomeActivity"
-            android:label="My Library" />
+            android:label="My Library"></activity>
         <activity
             android:name=".AddBook"
-            android:label="Add Book" />
-        <activity android:name=".BookDetails" />
-        <activity
-            android:name=".Barcode_Scanner"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="Barcode Scanner" />
-        <activity android:name=".EmbeddedBook" />
-        <activity android:name=".SearchActivity"
-            android:label=" "></activity>
+            android:label="Add Book"></activity>
+        <activity android:name=".BookDetails"></activity>
     </application>
 
 </manifest>

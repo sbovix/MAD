@@ -14,7 +14,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+<<<<<<< Updated upstream
             android:layout_marginTop="60px"
+=======
+>>>>>>> Stashed changes
             android:padding="10dp"
             android:background="#ff333333"
             android:textColor="#ffcccccc"
@@ -86,13 +89,17 @@
                     android:id="@+id/preview_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+<<<<<<< Updated upstream
                     android:layout_marginLeft="30px"
+=======
+>>>>>>> Stashed changes
                     android:text="@string/pre" />
 
                 <Button
                     android:id="@+id/link_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+<<<<<<< Updated upstream
                     android:layout_marginLeft="80px"
                     android:text="@string/link" />
                 <Button
@@ -101,6 +108,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="85px"
                     android:text="@string/save" />
+=======
+                    android:text="@string/link" />
+>>>>>>> Stashed changes
 
             </LinearLayout>
 
@@ -108,4 +118,10 @@
         </LinearLayout>
 
     </RelativeLayout>
+<<<<<<< Updated upstream
 </ScrollView>
+=======
+
+
+
+>>>>>>> Stashed changes
