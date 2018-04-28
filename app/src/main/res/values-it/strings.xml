@@ -3,7 +3,32 @@
     <string name="add_user"> Aggiungi utente</string>
     <string name="show_user"> Visualizza utente</string>
     <string name="login"> Accedi</string>
+    <string name="sign">Registrati</string>
+    <string name="name">Nome</string>
+    <string name="I_name">Nome: </string>
+    <string name="save">Salvare</string>
+    <string name="I_birth">Compleanno: </string>
+    <string name="I_info">Descrizione: </string>
+    <string name="W_F">Benvenuto</string>
     <string name="frase" >Non hai ancora un account? Iscriviti qui</string>
+    <string name="Welcome_frase">Benvenuto su questa piattaforma di Book Sharing. Iscriviti con la tua email</string>
+    <string name="title">Titolo</string>
+    <string name="auth">Autore</string>
+    <string name="pub">Editore</string>
+    <string name="ed">Anno di pubblicazione</string>
+    <string name="condition">Condizioni del libro</string>
+    <string name="scan">Scannerizzare un libro</string>
+
+
+    <string-array name ="field">
+
+        <item name="title"> Titolo</item>
+        <item> Autore</item>
+        <item> Anno</item>
+        <item> Editore</item>
+        <item> Condizioni</item>
+
+    </string-array>
 
 
 </resources>

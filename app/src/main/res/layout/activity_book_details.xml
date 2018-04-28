@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.silviabova.mylogin.BookDetails"
+    android:padding="15dp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="250dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/libri" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="26dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@+id/imageView"
+        android:layout_toRightOf="@+id/imageView"
+        android:text="@string/title"
+        android:textColor="#000"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/isbn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/title"
+        android:layout_alignStart="@+id/title"
+        android:layout_below="@+id/title"
+        android:textSize="15dp"
+        android:text="ISBN" />
+
+    <TextView
+        android:id="@+id/author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/isbn"
+        android:layout_alignStart="@+id/isbn"
+        android:layout_below="@+id/isbn"
+        android:text="@string/auth"
+        android:textStyle="italic"
+        android:textColor="#000"
+        android:textSize="25dp"/>
+
+    <TextView
+        android:id="@+id/publisher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/author"
+        android:layout_alignStart="@+id/author"
+        android:layout_below="@+id/author"
+        android:text="@string/pub"
+        android:textSize="20dp" />
+
+    <TextView
+        android:id="@+id/edyear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/publisher"
+        android:layout_alignStart="@+id/publisher"
+        android:layout_below="@+id/publisher"
+        android:text="@string/ed"
+        android:textSize="20dp"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:layout_alignStart="@+id/edyear"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imageView"
+        android:layout_alignLeft="@+id/edyear">
+
+        <TextView
+            android:id="@+id/bookcondition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/condition"
+            android:textSize="20dp" />
+    </ScrollView>
+
+
+</RelativeLayout>

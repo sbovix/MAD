@@ -20,6 +20,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -35,7 +37,6 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         firebaseAuth = FirebaseAuth.getInstance();
-
 
         password = (EditText) findViewById(R.id.password);
         email = (EditText) findViewById(R.id.Email);
@@ -56,6 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
 
+    //back button on the navigation bar
     public boolean onOptionsItemSelected(MenuItem item){
         Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
         startActivityForResult(myIntent, 0);
@@ -66,6 +68,8 @@ public class RegisterActivity extends AppCompatActivity {
     private void registerUser(View view){
         String semail = email.getText().toString().trim();
         String spassword = password.getText().toString().trim();
+
+        // Message to be shown if one of the field are missing of data
 
         if(TextUtils.isEmpty(semail)){
             //user must insert email
@@ -78,6 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
             return;
         }
 
+        // This is the Creation via mail and password provided by firebase
         firebaseAuth.createUserWithEmailAndPassword(semail,spassword).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {

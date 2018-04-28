@@ -3,5 +3,32 @@
     <string name="add_user"> Ajouter un utilisateur</string>
     <string name="show_user"> Voir utilisateur</string>
     <string name="login"> Se connecter</string>
+    <string name="sign">S\'inscrire</string>
+    <string name="name">Prenom</string>
+    <string name="I_name">Prenom: </string>
+    <string name="I_birth">Anniversaire: </string>
+    <string name="I_info">Description: </string>
+    <string name="save">Enregistrer</string>
+    <string name="W_F">Bienvenue</string>
     <string name="frase" >Tu n\'as pas de compte? Inscrivez-vous ici</string>
+    <string name="Welcome_frase">Bienvenue sur cette plateforme de partage de livres. Inscrivez-vous avec votre email</string>
+    <string name="title">Titre</string>
+    <string name="auth">Auteur</string>
+    <string name="pub">Éditeur</string>
+    <string name="ed">Année d\'édition</string>
+    <string name="condition">Condiciones del libro</string>
+    <string name="scan">Scanner un livre</string>
+
+
+    <string-array name ="field">
+
+        <item> Titre</item>
+        <item> Auteur </item>
+        <item> Année</item>
+        <item> Éditeur</item>
+        <item> Condiciones</item>
+
+    </string-array>
+
+
 </resources>

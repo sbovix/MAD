@@ -23,7 +23,7 @@
         android:gravity="center"
         android:paddingEnd="10px"
         android:paddingRight="10px"
-        android:text="Welcome"
+        android:text="@string/W_F"
         android:textSize="30dp"
         android:textStyle="italic"
         android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
@@ -58,7 +58,7 @@
             android:layout_marginEnd="27dp"
             android:layout_marginTop="20dp"
             android:ems="10"
-            android:hint="Name"
+            android:hint="@string/name"
             android:inputType="textPersonName" />
 
         <EditText
@@ -92,7 +92,7 @@
             android:layout_marginBottom="49dp"
             android:layout_marginEnd="105dp"
             android:autoSizeTextType="uniform"
-            android:text="save" />
+            android:text="@string/save" />
 
     </RelativeLayout>
 

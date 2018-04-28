@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    tools:context="com.example.silviabova.mylogin.AddBook"
+    android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Insert your book and its condition"
+        android:textStyle="italic"
+        android:paddingLeft="20dp"/>
+
+    <RelativeLayout
+        android:layout_width="582dp"
+        android:layout_height="290dp"
+        android:padding="10dp">
+
+        <ImageButton
+            android:id="@+id/Ib_set_image"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            app:srcCompat="@android:drawable/ic_menu_camera" />
+
+
+        <ImageView
+            android:id="@+id/Iv_image"
+            android:layout_width="221dp"
+            android:layout_height="271dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/isbn"
+            android:layout_marginTop="-10dp"
+            android:src="@drawable/iconbook" />
+
+
+        <EditText
+            android:id="@+id/isbn"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:layout_alignStart="@+id/publisher"
+            android:layout_alignTop="@+id/Ib_set_image"
+            android:ems="10"
+            android:hint="ISBN"
+            android:textColor="@android:color/black"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/title"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:layout_alignStart="@+id/isbn"
+            android:layout_below="@+id/isbn"
+            android:ems="10"
+            android:hint="@string/title"
+            android:textColor="@android:color/black"
+            android:inputType="textPersonName" />
+
+
+        <EditText
+            android:id="@+id/publisher"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:layout_above="@+id/ey"
+            android:layout_alignStart="@+id/ey"
+            android:ems="10"
+            android:hint="@string/pub"
+            android:inputType="textPersonName" />
+
+
+        <EditText
+            android:id="@+id/ey"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:layout_above="@+id/extra"
+            android:layout_alignStart="@+id/extra"
+            android:ems="10"
+            android:hint="@string/ed"
+            android:textColor="@android:color/black"
+            android:inputType="number" />
+
+        <EditText
+            android:id="@+id/extra"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:layout_above="@+id/Bt_register"
+            android:layout_alignParentEnd="true"
+            android:ems="10"
+            android:hint="@string/condition"
+            android:inputType="textMultiLine" />
+
+        <EditText
+            android:id="@+id/author"
+            android:layout_width="320dp"
+            android:layout_height="40dp"
+            android:layout_alignStart="@+id/isbn"
+            android:layout_below="@+id/title"
+            android:ems="10"
+            android:hint="@string/auth"
+            android:textColor="@android:color/black"
+            android:inputType="textPersonName" />
+
+        <Button
+            android:id="@+id/Bt_register"
+            android:layout_width="160dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="99dp"
+            android:background="@color/CartaZucchero"
+            android:text="@string/save"
+            android:textColor="#ffff" />
+
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

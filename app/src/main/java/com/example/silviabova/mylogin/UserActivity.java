@@ -84,6 +84,7 @@ public class UserActivity extends AppCompatActivity {
         //elimina la barra sopra
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        //permette di mostrare il logo
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.logo);
     }

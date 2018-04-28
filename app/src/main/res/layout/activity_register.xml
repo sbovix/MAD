@@ -17,7 +17,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Welcome on this Book Sharing platform. Sign up with your email"
+            android:text="@string/Welcome_frase"
             android:gravity="center"
             android:textStyle="italic"
             android:textSize="50px"/>
@@ -30,7 +30,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="Email"
-        android:layout_marginTop="300px"
+        android:layout_marginTop="70px"
         android:layout_marginLeft="10px"
         android:layout_marginRight="10px"/>
 
@@ -39,18 +39,18 @@
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10px"
+        android:layout_marginRight="10px"
         android:ems="10"
-        android:inputType="textPassword"
         android:hint="Password"
-        android:layout_marginLeft="30px"
-        android:layout_marginRight="10px"/>
+        android:inputType="textPassword" />
 
 
     <Button
         android:id="@+id/Bt_signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Signup"
+        android:text="@string/sign"
         android:autoSizeTextType="uniform"
         android:layout_marginLeft="200px"
         android:layout_marginRight="200px" />
