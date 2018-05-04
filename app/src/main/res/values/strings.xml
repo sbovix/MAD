@@ -19,5 +19,10 @@
     <string name="pub">Publisher</string>
     <string name="ed">Edition Year</string>
     <string name="condition">Condition\'s of the book</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="default_info_title">Default Info Title</string>
+    <string name="default_info_snippet">Default Info Snippet</string>
+    <string name="pick_place">Pick Place</string>
+    <string name="title_activity_show_location">Map</string>
 
 </resources>

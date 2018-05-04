@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -43,6 +44,7 @@ public class BookDetails extends AppCompatActivity {
     TextView condition;
     TextView tisbn;
     ImageView image;
+    Button loc;
 
 
     @Override
@@ -64,10 +66,19 @@ public class BookDetails extends AppCompatActivity {
         condition = (TextView) findViewById(R.id.bookcondition);
         image = (ImageView) findViewById(R.id.imageView);
         tisbn = (TextView) findViewById(R.id.isbn);
+        loc=(Button) findViewById(R.id.loc);
         tisbn.setText(isbn);
         storageReference = FirebaseStorage.getInstance().getReference("image/");
 
         getBookInformation(isbn);
+        loc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(BookDetails.this, ShowLocation.class);
+                intent.putExtra("ISBN", isbn);
+                startActivity(intent);
+            }
+        });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -126,4 +137,5 @@ public class BookDetails extends AppCompatActivity {
         return true;
 
     }
+
 }

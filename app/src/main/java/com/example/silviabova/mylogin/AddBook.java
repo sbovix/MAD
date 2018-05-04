@@ -184,6 +184,10 @@ public class AddBook extends AppCompatActivity {
         book.setImagestring(simage);
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         book.saveBookInformation(db);
+        Intent intent = new Intent(this, MapsActivity.class);
+        intent.putExtra("ISBN", book.getIsbn());
+        //finish();
+        startActivity(intent);
 
 
     }

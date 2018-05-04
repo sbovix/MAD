@@ -195,7 +195,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     private void findImageInStorage(List<String> strings, List<String> isbn) {
         for (String s : strings) {
-            final long ONE_MEGABYTE = 1024 * 1024;
+            final long ONE_MEGABYTE = 1024 * 1024*10;
             final List<String> isbn2 = isbn.subList(0,isbn.size());
             storageReference.child(s).getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                 @Override
