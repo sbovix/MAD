@@ -69,6 +69,7 @@
         <activity
             android:name=".ShowLocation"
             android:label="@string/title_activity_show_location"></activity>
+        <activity android:name=".SearchActivity"></activity>
     </application>
 
 </manifest>
