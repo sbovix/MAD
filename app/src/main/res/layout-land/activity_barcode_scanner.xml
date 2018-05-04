@@ -45,7 +45,7 @@
                 android:id="@+id/thumb"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-                android:contentDescription="@string/thumb" />
+                android:contentDescription="Thumb" />
 
             <TextView
                 android:id="@+id/book_date"
@@ -86,14 +86,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="50px"
-                    android:text="@string/pre" />
+                    android:text="Pre" />
 
                 <Button
                     android:id="@+id/link_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="260px"
-                    android:text="@string/link" />
+                    android:text="Link" />
 
                 <Button
                     android:id="@+id/save"

@@ -159,9 +159,12 @@ public class Barcode_Scanner extends AppCompatActivity implements OnClickListene
             startActivity(intent);
         }
         else if(v.getId()==R.id.save){
+            //add book
             book.saveBookInformation(db);
-            finish();
-            startActivity(new Intent(this,HomeActivity.class));
+            Intent intent = new Intent(this, MapsActivity.class);
+            intent.putExtra("ISBN", book.getIsbn());
+            //finish();
+            startActivity(intent);
         }
 
     }

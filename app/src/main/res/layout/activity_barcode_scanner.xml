@@ -14,10 +14,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-<<<<<<< Updated upstream
+
             android:layout_marginTop="60px"
-=======
->>>>>>> Stashed changes
+
             android:padding="10dp"
             android:background="#ff333333"
             android:textColor="#ffcccccc"
@@ -49,7 +48,7 @@
                 android:id="@+id/thumb"
                 android:layout_width="50dp"
                 android:layout_height="80dp"
-                android:contentDescription="@string/thumb" />
+                android:contentDescription="Thumb" />
 
             <TextView
                 android:id="@+id/book_date"
@@ -89,39 +88,27 @@
                     android:id="@+id/preview_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-<<<<<<< Updated upstream
-                    android:layout_marginLeft="30px"
-=======
->>>>>>> Stashed changes
-                    android:text="@string/pre" />
+
+                    android:layout_marginLeft="30px"/>
+
 
                 <Button
                     android:id="@+id/link_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-<<<<<<< Updated upstream
                     android:layout_marginLeft="80px"
-                    android:text="@string/link" />
+                    android:text="Link" />
                 <Button
                     android:id="@+id/save"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="85px"
                     android:text="@string/save" />
-=======
-                    android:text="@string/link" />
->>>>>>> Stashed changes
-
-            </LinearLayout>
+                </LinearLayout>
 
 
         </LinearLayout>
 
     </RelativeLayout>
-<<<<<<< Updated upstream
+
 </ScrollView>
-=======
-
-
-
->>>>>>> Stashed changes

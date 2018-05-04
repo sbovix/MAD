@@ -83,7 +83,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/imageView"
-        android:layout_alignLeft="@+id/edyear">
+        android:layout_alignLeft="@+id/edyear"
+        android:id="@+id/scrollView2">
 
         <TextView
             android:id="@+id/bookcondition"
@@ -92,6 +93,15 @@
             android:text="@string/condition"
             android:textSize="20dp" />
     </ScrollView>
+
+    <Button
+        android:id="@+id/loc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/scrollView2"
+        android:layout_alignLeft="@+id/edyear"
+        android:layout_alignStart="@+id/edyear"
+        android:text="Show Book's Location" />
 
 
 </RelativeLayout>
