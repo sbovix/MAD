@@ -37,7 +37,7 @@
         android:layout_marginLeft="280dp"
         android:layout_marginRight="30dp"
         android:background="@null"
-        android:backgroundTint="@color/CartaZucchero" />
+        android:tint="@color/CartaZucchero"/>
 
     <android.support.design.widget.NavigationView
     app:headerLayout="@layout/header"
