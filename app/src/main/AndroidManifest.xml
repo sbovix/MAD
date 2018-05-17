@@ -68,8 +68,10 @@
             android:label="@string/title_activity_maps" />
         <activity
             android:name=".ShowLocation"
-            android:label="@string/title_activity_show_location"></activity>
-        <activity android:name=".SearchActivity"></activity>
+            android:label="@string/title_activity_show_location" />
+        <activity android:name=".SearchActivity" />
+        <activity android:name=".ChatActivity" />
+        <activity android:name=".AllChatsActivity"></activity>
     </application>
 
 </manifest>
