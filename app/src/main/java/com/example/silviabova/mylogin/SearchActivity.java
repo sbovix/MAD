@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -35,6 +37,7 @@ public class SearchActivity extends AppCompatActivity {
     public Spinner spin;
 
     List<String> LIST = new ArrayList<String>();
+    List<String> isbnList = new ArrayList<String>();
     private int spinner;
 
     @Override
@@ -46,6 +49,15 @@ public class SearchActivity extends AppCompatActivity {
 
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1,LIST);
         lst.setAdapter(adapter);
+        lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getBaseContext(), "List item " + (i + 1) + " Selected", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(SearchActivity.this, BookUserDetails.class);
+                intent.putExtra("ISBN",isbnList.get(i));
+                startActivity(intent);
+            }
+        });
 
 
         database = FirebaseDatabase.getInstance().getReference();
@@ -91,12 +103,14 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(final String s) {
+                LIST.clear();
+                isbnList.clear();
                 database.addListenerForSingleValueEvent(new ValueEventListener() {
 
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                         String selected;
-                         String selectedItem = spin.getSelectedItem().toString().trim();//riferisce alla stringa che utente seleziona
+                        String selected;
+                        String selectedItem = spin.getSelectedItem().toString().trim();//riferisce alla stringa che utente seleziona
 
                         if(selectedItem.compareTo("Titolo")==0 || selectedItem.compareTo("Title")==0 || selectedItem.compareTo("Titre")==0
                                 || selectedItem.compareTo("Título")==0) {
@@ -139,20 +153,35 @@ public class SearchActivity extends AppCompatActivity {
                         boolean found = false;
                         for(DataSnapshot data : dataSnapshot.getChildren()){
                             DataSnapshot book = data.child("Books");
+
+                            //B.child(selected).getValue().toString()
+                            //s.equalsIgnoreCase(B.child(selected).getValue().toString())
+                            // B.child(selected).getValue().toString()).contains(s
+
+
                             for(DataSnapshot B :book.getChildren()){
-                                if(s.equalsIgnoreCase(B.child(selected).getValue().toString())) {
+                                if((B.child(selected).getValue().toString().toLowerCase()).contains(s.toLowerCase())){
+                                    //Log.d("TROVATO", "fffffffffff TROVATO");
+                                    LIST.add(B.child(selected).getValue().toString());
+                                    isbnList.add(B.getKey().toString());
+                                   // Log.d("ISBN", "ho trovato "+B.getKey());
+                                    //Toast.makeText(SearchActivity.this, "Found", Toast.LENGTH_SHORT).show();
+                                    found = true;
+                                }
+                                /*if(s.equalsIgnoreCase(B.child(selected).getValue().toString())) {
                                     LIST.add(B.child(selected).getValue().toString());
                                     Toast.makeText(SearchActivity.this, "Found", Toast.LENGTH_SHORT).show();
                                     found = true;
 
-                                }
+                                }*/
                             }
                         }
 
                         if(found == false) {
-//                            LIST.add("Nessun elemento trovato");
+//                                  LIST.add("Nessun elemento trovato");
                             Toast.makeText(SearchActivity.this, "Not Found", Toast.LENGTH_SHORT).show();
                         }
+
                     }
 
                     @Override
@@ -167,3 +196,4 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 }
+

@@ -85,12 +85,14 @@ public class BookDetails extends AppCompatActivity {
     }
 
     private void getBookInformation(String isbn){
+        //final String Isbn =isbn;
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
-        databaseReference = FirebaseDatabase.getInstance().getReference("/"+user.getUid()+"/Books/"+isbn);
+        databaseReference = FirebaseDatabase.getInstance().getReference(user.getUid()+"/Books/"+isbn);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 String stitle = dataSnapshot.child("/title").getValue(String.class);
                 String sauthor = dataSnapshot.child("/author").getValue(String.class);
                 String spublisher = dataSnapshot.child("/publisher").getValue(String.class);

@@ -67,6 +67,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_home);
 
 
+
         drawerLayout = (DrawerLayout)findViewById(R.id.activityHome);
         mToggle = new ActionBarDrawerToggle(this, drawerLayout,R.string.Open, R.string.Close);
         drawerLayout.addDrawerListener(mToggle);
@@ -163,6 +164,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void findImage(){
+        imageStrings.clear();
+        isbn.clear();
         final FirebaseUser user = mAuth.getCurrentUser();
 
         dbReference=FirebaseDatabase.getInstance().getReference(""+user.getUid()+"/Books");
@@ -194,9 +197,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void findImageInStorage(List<String> strings, List<String> isbn) {
+        books.clear();
         for (String s : strings) {
-            final long ONE_MEGABYTE = 1024 * 1024*10;
-            final List<String> isbn2 = isbn.subList(0,isbn.size());
+            final long ONE_MEGABYTE = 1024 * 1024*1024;
+            final List<String> isbn2 = isbn.subList(0, isbn.size());
             storageReference.child(s).getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
                 @Override
                 public void onSuccess(byte[] bytes) {
