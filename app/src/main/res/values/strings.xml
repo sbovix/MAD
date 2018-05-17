@@ -24,5 +24,9 @@
     <string name="default_info_snippet">Default Info Snippet</string>
     <string name="pick_place">Pick Place</string>
     <string name="title_activity_show_location">Map</string>
+    <string name="title_activity_chat_list">ChatListActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
 </resources>
