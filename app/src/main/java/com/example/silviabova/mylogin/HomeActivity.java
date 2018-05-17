@@ -4,14 +4,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -159,6 +158,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             mAuth.signOut();
             finish();
             startActivity(new Intent(HomeActivity.this, MainActivity.class));
+        }
+        if(id==R.id.buttonChat){
+            finish();
+            startActivity(new Intent(HomeActivity.this, AllChatsActivity.class));
         }
         return false;
     }
