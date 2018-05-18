@@ -83,7 +83,7 @@ public class BookDetails extends AppCompatActivity {
         //final String Isbn =isbn;
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
-        databaseReference = FirebaseDatabase.getInstance().getReference(user.getUid()+"/Books/"+isbn);
+        databaseReference = FirebaseDatabase.getInstance().getReference("/Books/"+isbn);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

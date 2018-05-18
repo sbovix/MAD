@@ -1,7 +1,6 @@
 package com.example.silviabova.mylogin;
 
 
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
-import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -24,7 +22,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -47,8 +44,6 @@ import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.UUID;
@@ -63,7 +58,8 @@ public class Barcode_Scanner extends AppCompatActivity implements OnClickListene
     private ImageView[] starViews;
     private Bitmap thumbImg;
     private Book book = new Book();
-    private FirebaseDatabase db = FirebaseDatabase.getInstance();
+    private FirebaseDatabase dbUser = FirebaseDatabase.getInstance();
+    private FirebaseDatabase dbBook = FirebaseDatabase.getInstance();
     FirebaseStorage storage = FirebaseStorage.getInstance();
     private String title,author,edyear,image;
 
@@ -160,7 +156,7 @@ public class Barcode_Scanner extends AppCompatActivity implements OnClickListene
         }
         else if(v.getId()==R.id.save){
             //add book
-            book.saveBookInformation(db);
+            book.saveBookInformation(dbUser,dbBook);
             Intent intent = new Intent(this, MapsActivity.class);
             intent.putExtra("ISBN", book.getIsbn());
             //finish();

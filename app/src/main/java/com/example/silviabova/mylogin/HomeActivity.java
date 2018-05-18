@@ -11,6 +11,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,6 +50,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     private FirebaseAuth mAuth;
     private DatabaseReference dbReference;
+    private DatabaseReference dbIsbn;
 
     private GridView gridView;
     private ArrayList<String> imageStrings = new ArrayList<>();
@@ -131,12 +133,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                String sname = dataSnapshot.child(user.getUid()).child("name").getValue(String.class);
-                String sURL = dataSnapshot.child(user.getUid()).child("URLimage").getValue(String.class);
+                String sname = dataSnapshot.child("Users").child(user.getUid()).child("name").getValue(String.class);
+                String sURL = dataSnapshot.child("Users").child(user.getUid()).child("URLimage").getValue(String.class);
 
                 Name.setText(sname);
 
-                Picasso.with(HomeActivity.this).load(sURL).transform((Transformation) new PicassoCircleTransformation()).into(UserImage);
+                Picasso.with(HomeActivity.this).load(sURL).placeholder(R.drawable.user1).transform((Transformation) new PicassoCircleTransformation()).into(UserImage);
             }
 
             @Override
@@ -171,25 +173,42 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         isbn.clear();
         final FirebaseUser user = mAuth.getCurrentUser();
 
-        dbReference=FirebaseDatabase.getInstance().getReference(""+user.getUid()+"/Books");
-        dbReference.addValueEventListener(new ValueEventListener() {
+        dbIsbn = FirebaseDatabase.getInstance().getReference("Users/"+user.getUid()+"/Books");
+
+        dbIsbn.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    String simage = ds.child("/image").getValue(String.class);
-                    String sisbn = ds.getKey();
-                    if(simage!=null){
-                        simage=simage.replace("image/", "");
-                        simage=simage.trim();
-                        imageStrings.add(simage);
-                    }
-                    if(sisbn!=null){
-                        isbn.add(sisbn);
-                    }
+                    dbReference=FirebaseDatabase.getInstance().getReference("Books/"+ds.getKey()+"/");
+                    dbReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshots) {
+                            String simage= dataSnapshots.child("image").getValue(String.class);
+                            String sisbn = dataSnapshots.getKey().toString();
+
+                            if(simage!=null){
+                                simage=simage.replace("image/", "");
+                                simage=simage.trim();
+                                imageStrings.add(simage);
+                                Log.d("SIMAGE", simage);
+                            }
+                            if(sisbn!=null){
+                                isbn.add(sisbn);
+                                Log.d("ISBN", sisbn);
+                            }
+                            findImageInStorage(imageStrings, isbn);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
 
 
                 }
-                findImageInStorage(imageStrings, isbn);
+
+
             }
 
             @Override

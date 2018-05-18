@@ -3,10 +3,8 @@ package com.example.silviabova.mylogin;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.provider.ContactsContract;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -131,9 +129,9 @@ public class BookUserDetails extends AppCompatActivity {
                         userid=ds.getKey();
                         if((userid==null) ||(userid.compareTo("")==0)){
                             Toast.makeText(BookUserDetails.this, "USERID nulla", Toast.LENGTH_SHORT).show();
-                            Log.d("USERID", "gggggggggggggggggggggggggg userid nulla");
+                            //Log.d("USERID", "gggggggggggggggggggggggggg userid nulla");
                         }else{
-                            Log.d("USERID", "gggggggggggggggggggggggggg userid NON nulla");
+                            //Log.d("USERID", "gggggggggggggggggggggggggg userid NON nulla");
                         }
 
                         username=dataSnapshot.child(userid).child("name").getValue(String.class);

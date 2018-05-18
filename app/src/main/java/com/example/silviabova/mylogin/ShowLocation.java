@@ -1,10 +1,8 @@
 package com.example.silviabova.mylogin;
 
-import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -132,8 +130,8 @@ public class ShowLocation extends AppCompatActivity implements OnMapReadyCallbac
         fb.getReference().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Double lat= dataSnapshot.child(user.getUid()).child("Books").child(isbn).child("latitude").getValue(Double.class);
-                Double lng= dataSnapshot.child(user.getUid()).child("Books").child(isbn).child("longitude").getValue(Double.class);
+                Double lat= dataSnapshot.child("Users"+user.getUid()).child("Books").child(isbn).child("latitude").getValue(Double.class);
+                Double lng= dataSnapshot.child("Users"+user.getUid()).child("Books").child(isbn).child("longitude").getValue(Double.class);
                 if(lat!=null && lng!=null){
                     LatLng sydney = new LatLng(lat, lng);
                     mMap.addMarker(new MarkerOptions().position(sydney).title("Book's Marker"));

@@ -1,20 +1,16 @@
 package com.example.silviabova.mylogin;
 
-import android.*;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -45,8 +41,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.jar.*;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -187,8 +181,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             lat=mLastKnownLocation.getLatitude();
                             lng=mLastKnownLocation.getLongitude();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            DatabaseReference myRefLat = fb.getReference("/"+user.getUid()+"/Books/"+isbn+"/latitude");
-                            DatabaseReference myRefLng = fb.getReference("/"+user.getUid()+"/Books/"+isbn+"/longitude");
+                            DatabaseReference myRefLat = fb.getReference("Books/"+isbn+"/latitude");
+                            DatabaseReference myRefLng = fb.getReference("Books/"+isbn+"/longitude");
                             myRefLat.setValue(lat);
                             myRefLng.setValue(lng);
                         }else{
@@ -233,6 +227,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if(mLocationPErmissionGranted){
             @SuppressLint("MissingPermission") final Task<PlaceLikelihoodBufferResponse> placeResult = mPlaceDetectionClient.getCurrentPlace(null);
             placeResult.addOnCompleteListener(new OnCompleteListener<PlaceLikelihoodBufferResponse>() {
+                @SuppressLint("RestrictedApi")
                 @Override
                 public void onComplete(@NonNull Task<PlaceLikelihoodBufferResponse> task) {
                     if(task.isSuccessful() && task.getResult() !=null){

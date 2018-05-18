@@ -93,17 +93,18 @@ public class Book {
         this.imagestring = imagestring;
     }
 
-    public void saveBookInformation(FirebaseDatabase fb){
+    public void saveBookInformation(FirebaseDatabase fbUser,FirebaseDatabase fbBook){
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
 
-        DatabaseReference myReftitle = fb.getReference("/"+user.getUid()+"/Books/"+isbn+"/title");
-        DatabaseReference myRefauthor = fb.getReference("/"+user.getUid()+"/Books/"+isbn+"/author");
-        DatabaseReference myRefpublisher = fb.getReference("/"+user.getUid()+"/Books/"+isbn+"/publisher");
-        DatabaseReference myRefeditionyear= fb.getReference("/"+user.getUid()+"/Books/"+isbn+"/edition_year");
-        DatabaseReference myRefbookcondition = fb.getReference("/"+user.getUid()+"/Books/"+isbn+"/book_condition");
-        DatabaseReference myRefextra = fb.getReference("/"+user.getUid()+"/Books/"+isbn+"/extra");
-        DatabaseReference myRefimage = fb.getReference("/"+user.getUid()+"/Books/"+isbn+"/image");
+        DatabaseReference myIsbn = fbUser.getReference("Users/"+user.getUid()+"/Books/"+isbn);
+        DatabaseReference myReftitle = fbBook.getReference("Books/"+isbn+"/title");
+        DatabaseReference myRefauthor = fbBook.getReference("Books/"+isbn+"/author");
+        DatabaseReference myRefpublisher = fbBook.getReference("Books/"+isbn+"/publisher");
+        DatabaseReference myRefeditionyear= fbBook.getReference("Books/"+isbn+"/edition_year");
+        DatabaseReference myRefbookcondition = fbBook.getReference("Books/"+isbn+"/book_condition");
+        DatabaseReference myRefextra = fbBook.getReference("Books/"+isbn+"/extra");
+        DatabaseReference myRefimage = fbBook.getReference("Books/"+isbn+"/image");
 
         myReftitle.setValue(title);
         myRefauthor.setValue(author);
@@ -112,6 +113,6 @@ public class Book {
         myRefbookcondition.setValue(book_condition);
         myRefextra.setValue(extra);
         myRefimage.setValue(imagestring);
-
+        myIsbn.setValue(isbn);
     }
 }
