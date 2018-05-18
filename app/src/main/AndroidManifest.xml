@@ -70,12 +70,10 @@
             android:name=".ShowLocation"
             android:label="@string/title_activity_show_location" />
         <activity android:name=".SearchActivity" />
-
         <activity android:name=".BookUserDetails" />
-        <activity android:name=".UserShowActivity"></activity>
+        <activity android:name=".UserShowActivity" />
         <activity android:name=".ChatActivity" />
-        <activity android:name=".AllChatsActivity"></activity>
-
+        <activity android:name=".AllChatsActivity" />
     </application>
 
 </manifest>

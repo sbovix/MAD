@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="291dp"
+        android:layout_height="match_parent"
+        android:background="@color/myBlu"
+        android:padding="20px">
+
+        <ImageView
+            android:id="@+id/Tv_UserImage"
+            android:layout_width="221dp"
+            android:layout_height="180dp"
+            android:layout_marginTop="20px"
+            android:foregroundGravity="center"
+            android:src="@drawable/user1" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="246dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/Tv_UserImage"
+            android:layout_marginTop="13dp"
+            android:gravity="left"
+            android:text="@string/I_name"
+            android:paddingTop="210dp"
+            android:textColor="#fff"
+            android:textSize="@dimen/fab_margin"
+            android:textStyle="italic" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/age"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="26dp"
+        android:text="@string/I_birth"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/fab_margin"
+        android:textStyle="italic" />
+
+
+    <TextView
+        android:id="@+id/bio"
+        android:layout_width="230dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="109dp"
+        android:text="@string/I_info"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/fab_margin"
+        android:textStyle="italic">
+
+    </TextView>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="64dp"
+        android:layout_height="23dp"
+        android:layout_alignTop="@+id/age"
+        android:layout_toStartOf="@+id/age"
+        android:paddingLeft="20px"
+        android:paddingRight="30px"
+        android:src="@drawable/birth"
+        android:tint="@color/CartaZucchero" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="62dp"
+        android:layout_height="27dp"
+        android:layout_alignTop="@+id/bio"
+        android:layout_marginStart="8dp"
+        android:layout_toEndOf="@+id/relativeLayout"
+        android:paddingLeft="20px"
+        android:paddingRight="30px"
+        android:src="@drawable/bio"
+        android:tint="@color/CartaZucchero" />
+
+
+    <ImageButton
+        android:id="@+id/contactbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="88dp"
+        android:layout_toStartOf="@+id/age"
+        android:backgroundTint="#fff"
+        android:tint="@color/CartaZucchero"
+        app:srcCompat="@android:drawable/sym_action_email" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/age"
+        android:layout_marginBottom="103dp"
+        android:text="Send a message"
+        android:textColor="@color/CartaZucchero"
+        android:textSize="15sp"
+        android:textStyle="italic" />
+
+</RelativeLayout>
