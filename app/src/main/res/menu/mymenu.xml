@@ -11,7 +11,7 @@
         android:title="Settings" />
     <item
         android:id="@+id/buttonChat"
-        android:icon="@drawable/user1"
+        android:icon="@drawable/ic_chat_black_24dp"
         android:title="Chat" />
     <item
         android:id="@+id/mybutton"

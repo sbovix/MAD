@@ -1,13 +1,8 @@
 package com.example.silviabova.mylogin;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
@@ -24,8 +19,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
-
-import junit.framework.TestResult;
 
 public class UserActivity extends AppCompatActivity {
     private TextView name;
@@ -62,10 +55,10 @@ public class UserActivity extends AppCompatActivity {
         dbReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String sname = dataSnapshot.child(user.getUid()).child("name").getValue(String.class);
-                String sage = dataSnapshot.child(user.getUid()).child("age").getValue(String.class);
-                String sbio = dataSnapshot.child(user.getUid()).child("bio").getValue(String.class);
-                String sURL = dataSnapshot.child(user.getUid()).child("URLimage").getValue(String.class);
+                String sname = dataSnapshot.child("Users").child(user.getUid()).child("name").getValue(String.class);
+                String sage = dataSnapshot.child("Users").child(user.getUid()).child("age").getValue(String.class);
+                String sbio = dataSnapshot.child("Users").child(user.getUid()).child("bio").getValue(String.class);
+                String sURL = dataSnapshot.child("Users").child(user.getUid()).child("URLimage").getValue(String.class);
 
                 name.setText("Name: " + sname);
                 age.setText("Birthday: " + sage);

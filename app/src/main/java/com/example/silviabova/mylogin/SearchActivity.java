@@ -1,10 +1,8 @@
 package com.example.silviabova.mylogin;
 
 import android.content.Intent;
-import android.provider.ContactsContract;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,7 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -26,8 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.widget.Toast.LENGTH_SHORT;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -55,12 +50,13 @@ public class SearchActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "List item " + (i + 1) + " Selected", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(SearchActivity.this, BookUserDetails.class);
                 intent.putExtra("ISBN",isbnList.get(i));
+                //Log.d("ISBN", "ho trovato "+isbnList.get(i));
                 startActivity(intent);
             }
         });
 
 
-        database = FirebaseDatabase.getInstance().getReference();
+        database = FirebaseDatabase.getInstance().getReference().child("Books");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -141,7 +137,7 @@ public class SearchActivity extends AppCompatActivity {
                         else if (selectedItem.compareTo("Condizioni")==0 || selectedItem.compareTo("Condition")==0 || selectedItem.compareTo("Condiciones")==0
                                 || selectedItem.compareTo("Conditions")==0) {
                             selected  = "book_condition";
-                            Toast.makeText(SearchActivity.this, selected, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(SearchActivity.this, selected, Toast.LENGTH_SHORT).show();
 
                         }
 
@@ -151,20 +147,12 @@ public class SearchActivity extends AppCompatActivity {
 
 
                         boolean found = false;
-                        for(DataSnapshot data : dataSnapshot.getChildren()){
-                            DataSnapshot book = data.child("Books");
-
-                            //B.child(selected).getValue().toString()
-                            //s.equalsIgnoreCase(B.child(selected).getValue().toString())
-                            // B.child(selected).getValue().toString()).contains(s
-
-
-                            for(DataSnapshot B :book.getChildren()){
+                        for(DataSnapshot B : dataSnapshot.getChildren()){
                                 if((B.child(selected).getValue().toString().toLowerCase()).contains(s.toLowerCase())){
                                     //Log.d("TROVATO", "fffffffffff TROVATO");
                                     LIST.add(B.child(selected).getValue().toString());
                                     isbnList.add(B.getKey().toString());
-                                   // Log.d("ISBN", "ho trovato "+B.getKey());
+                                    //Log.d("ISBN", "ho trovato "+B.getKey());
                                     //Toast.makeText(SearchActivity.this, "Found", Toast.LENGTH_SHORT).show();
                                     found = true;
                                 }
@@ -174,7 +162,6 @@ public class SearchActivity extends AppCompatActivity {
                                     found = true;
 
                                 }*/
-                            }
                         }
 
                         if(found == false) {
