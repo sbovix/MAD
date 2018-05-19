@@ -82,7 +82,7 @@ public class BookDetails extends AppCompatActivity {
     private void getBookInformation(String isbn){
         //final String Isbn =isbn;
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser user = mAuth.getCurrentUser();
+        final FirebaseUser user = mAuth.getCurrentUser();
         databaseReference = FirebaseDatabase.getInstance().getReference("/Books/"+isbn);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -94,6 +94,7 @@ public class BookDetails extends AppCompatActivity {
                 int sedyear =  dataSnapshot.child("/edition_year").getValue(Integer.class);
                 String scond = dataSnapshot.child("/extra").getValue(String.class);
                 String simage = dataSnapshot.child("/image").getValue(String.class);
+                String ID = dataSnapshot.child("/owner").getValue(String.class);
                 simage=simage.replace("image/", "");
                 simage= simage.trim();
 

@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
+import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -13,8 +16,11 @@ import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -24,22 +30,37 @@ public class ChatActivity extends AppCompatActivity {
     private DatabaseReference mRef;
     private FirebaseAuth mAuth;
     String mCurrentUserId;
+    String UserName,UserPhoto;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
+        mRef = FirebaseDatabase.getInstance().getReference();
         RelativeLayout activity_chat = findViewById(R.id.activity_chat);
+        mRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                UserName = dataSnapshot.child("Users").child(mCurrentUserId).child("name").getValue(String.class);
+                //Log.d("name",UserName);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         fab = (FloatingActionButton)findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 EditText input = (EditText)findViewById(R.id.input);
                 FirebaseDatabase.getInstance().getReference("Users/"+mCurrentUserId+"/Chats/"+mChatUser).push().setValue(new ChatMessage(input.getText().toString(),
-                        FirebaseAuth.getInstance().getCurrentUser().getDisplayName()));
+                        UserName,1));
                 FirebaseDatabase.getInstance().getReference("Users/"+mChatUser+"/Chats/"+mCurrentUserId).push().setValue(new ChatMessage(input.getText().toString(),
-                        FirebaseAuth.getInstance().getCurrentUser().getDisplayName()));
+                        UserName,2));
                 input.setText("");
             }
         });
@@ -50,7 +71,7 @@ public class ChatActivity extends AppCompatActivity {
         //Check if the user is already signed in
         mAuth = FirebaseAuth.getInstance();
         mCurrentUserId = mAuth.getCurrentUser().getUid();
-        mRef = FirebaseDatabase.getInstance().getReference("Users/"+mCurrentUserId+"/Chats/"+mChatUser);
+        mRef.child("/Chats/"+mChatUser);
         if( mAuth.getCurrentUser()== null){
             finish();
             startActivity(new Intent(ChatActivity.this, MainActivity.class));
@@ -60,36 +81,25 @@ public class ChatActivity extends AppCompatActivity {
             //Load content
             displayChatMessage();
         }
-        //Save with which user I have already chatted
-        /*mRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(!dataSnapshot.hasChild(mChatUser)){
-                    Map chatAddMap = new HashMap();
-                    chatAddMap.put("seen", false);
-                    chatAddMap.put("Timestamp", ServerValue.TIMESTAMP);
 
-                    Map chatUserMap = new HashMap();
-                    chatUserMap.put("Chat/"+mCurrentUserId+"/"+mChatUser,chatAddMap);
-                    chatUserMap.put("Chat/"+mChatUser+"/"+mCurrentUserId,chatAddMap);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-                }
-                mRef.updateChildren(chatUserMap, new DatabaseReference.CompletionListener() {
-                    @Override
-                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                        if(databaseError != null){
-                            Log.d("CHAT_LOG",databaseError.getMessage().toString());
-                        }
-                    }
-                });
+        //elimina la barra sopra
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-            }
+        //permette di mostrare il logo
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+    }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+    //back button in the navigation bar
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), AllChatsActivity.class);
+        startActivityForResult(myIntent, 0);
+        finish();
 
-            }
-        });*/
+        return true;
+
     }
 
     private void displayChatMessage(){
@@ -104,8 +114,24 @@ public class ChatActivity extends AppCompatActivity {
                 messageTime = (TextView) v.findViewById(R.id.message_time);
 
                 messageText.setText(model.getMessageText());
-                messageUser.setText(model.getMessageUser());
                 messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",model.getMessageTime()));
+
+                if(model.getType() == 1){ //MESSAGE SENT
+                    messageText.setGravity(Gravity.LEFT);
+                    messageTime.setGravity(Gravity.RIGHT);
+                    messageUser.setText("You:");
+                    messageText.setPadding(400,50,5,100);
+                    messageUser.setPadding(400,5,5,50);
+                    messageTime.setPadding(400,100,5,50);
+                }
+                else if(model.getType() == 2){ //MESSAGE RECEIVED
+                    messageText.setGravity(Gravity.LEFT);
+                    messageTime.setGravity(Gravity.RIGHT);
+                    messageUser.setText(model.getMessageUser()+":");
+                    messageText.setPadding(5,50,400,100);
+                    messageUser.setPadding(5,5,400,50);
+                    messageTime.setPadding(5,100,400,50);
+                }
 
             }
         };

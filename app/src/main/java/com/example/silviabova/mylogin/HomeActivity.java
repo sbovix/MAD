@@ -134,7 +134,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 String sname = dataSnapshot.child("Users").child(user.getUid()).child("name").getValue(String.class);
-                String sURL = dataSnapshot.child("Users").child(user.getUid()).child("URLimage").getValue(String.class);
+                String sURL = dataSnapshot.child("Users").child(user.getUid()).child("urlimage").getValue(String.class);
 
                 Name.setText(sname);
 

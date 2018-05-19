@@ -19,6 +19,16 @@ public class Book {
     private String extra;
     private int libri=1;
     private String imagestring;
+    private String owner;
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
 
 
     public String getIsbn() {
@@ -105,6 +115,7 @@ public class Book {
         DatabaseReference myRefbookcondition = fbBook.getReference("Books/"+isbn+"/book_condition");
         DatabaseReference myRefextra = fbBook.getReference("Books/"+isbn+"/extra");
         DatabaseReference myRefimage = fbBook.getReference("Books/"+isbn+"/image");
+        DatabaseReference myOwner = fbBook.getReference("Books/"+isbn+"/owner");
 
         myReftitle.setValue(title);
         myRefauthor.setValue(author);
@@ -112,6 +123,7 @@ public class Book {
         myRefeditionyear.setValue(edition_year);
         myRefbookcondition.setValue(book_condition);
         myRefextra.setValue(extra);
+        myOwner.setValue(user.getUid());
         myRefimage.setValue(imagestring);
         myIsbn.setValue(isbn);
     }

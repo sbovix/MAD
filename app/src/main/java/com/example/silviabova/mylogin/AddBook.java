@@ -141,7 +141,7 @@ public class AddBook extends AppCompatActivity {
 
             bitmap2 = (Bitmap) data.getExtras().get("data");
             image1.setImageBitmap(bitmap2);
-            Toast.makeText(this, "Image Saved!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Image Saved!", Toast.LENGTH_SHORT).show();
             simage=savingImage(bitmap2);
         }
     }
