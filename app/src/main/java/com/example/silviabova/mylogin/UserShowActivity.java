@@ -1,6 +1,7 @@
 package com.example.silviabova.mylogin;
 
 import android.os.Bundle;
+import android.view.View;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -39,7 +40,7 @@ public class UserShowActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.logo);
 
-        userid = getIntent().getStringExtra("UID");
+        userid = getIntent().getStringExtra("user_id");
 
         name = (TextView) findViewById(R.id.name);
         age = (TextView) findViewById(R.id.age);
@@ -51,6 +52,15 @@ public class UserShowActivity extends AppCompatActivity {
         dbReference = FirebaseDatabase.getInstance().getReference("Users/");
 
         showUserProfile(userid);
+
+        message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UserShowActivity.this, ChatActivity.class);
+                intent.putExtra("user_id", userid);
+                startActivity(intent);
+            }
+        });
     }
 
     private void showUserProfile(final String userid){
@@ -58,10 +68,10 @@ public class UserShowActivity extends AppCompatActivity {
         dbReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String username = dataSnapshot.child(userid).child("name").getValue(String.class);
-                String userage= dataSnapshot.child(userid).child("age").getValue(String.class);
-                String userbio= dataSnapshot.child(userid).child("bio").getValue(String.class);
-                String url = dataSnapshot.child(userid).child("URLimage").getValue(String.class);
+                String username = dataSnapshot.child("Users").child(userid).child("name").getValue(String.class);
+                String userage= dataSnapshot.child("Users").child(userid).child("age").getValue(String.class);
+                String userbio= dataSnapshot.child("Users").child(userid).child("bio").getValue(String.class);
+                String url = dataSnapshot.child("Users").child(userid).child("urlimage").getValue(String.class);
 
                 name.setText("Name: " + username);
                 age.setText("Birthday: " + userage);

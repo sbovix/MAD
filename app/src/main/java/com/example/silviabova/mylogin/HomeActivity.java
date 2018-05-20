@@ -79,7 +79,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         View header=navigationView.getHeaderView(0);
 
         mAuth = FirebaseAuth.getInstance();
-        dbReference = FirebaseDatabase.getInstance().getReference();
+        dbReference = FirebaseDatabase.getInstance().getReference("/Users/");
 
         UserImage = (ImageView) header.findViewById(R.id.HUserImage);
         Name = (TextView) header.findViewById(R.id.Name);
@@ -190,7 +190,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                                 simage=simage.replace("image/", "");
                                 simage=simage.trim();
                                 imageStrings.add(simage);
-                                Log.d("SIMAGE", simage);
+                                //Log.d("SIMAGE", simage);
                             }
                             if(sisbn!=null){
                                 isbn.add(sisbn);
@@ -204,7 +204,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
                         }
                     });
-
 
                 }
 

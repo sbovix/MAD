@@ -27,7 +27,10 @@ import com.squareup.picasso.Transformation;
 
 public class BookUserDetails extends AppCompatActivity {
     String isbn;
-    DatabaseReference databaseReference, userdatabase;
+
+    DatabaseReference databaseReference;
+    DatabaseReference userDatabase;
+
     StorageReference storageReference;
     String title;
     String username;
@@ -66,7 +69,9 @@ public class BookUserDetails extends AppCompatActivity {
         getSupportActionBar().setIcon(R.drawable.logo);
 
         isbn=getIntent().getStringExtra("ISBN");
-        databaseReference= FirebaseDatabase.getInstance().getReference("Books/");
+
+        databaseReference= FirebaseDatabase.getInstance().getReference("/Books/");
+        userDatabase = FirebaseDatabase.getInstance().getReference("/Users/");
         storageReference = FirebaseStorage.getInstance().getReference("/image/");
 
         titleview =(TextView) findViewById(R.id.booktitle);
@@ -79,13 +84,15 @@ public class BookUserDetails extends AppCompatActivity {
         imageView=(ImageView) findViewById(R.id.bookimage);
         message=(ImageButton) findViewById(R.id.chat);
 
-        findUserAndBook(isbn.toString());
+        findBook(isbn);
+        findUser(isbn);
 
         nameview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(BookUserDetails.this, UserShowActivity.class);
-                intent.putExtra("UID", owner);
+                intent.putExtra("user_id", userid);
+
                 startActivity(intent);
             }
         });
@@ -93,8 +100,9 @@ public class BookUserDetails extends AppCompatActivity {
         message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(BookUserDetails.this,ChatActivity.class);
-                intent.putExtra("user_id",owner);
+
+                Intent intent= new Intent(BookUserDetails.this, ChatActivity.class);
+                intent.putExtra("user_id", userid);
                 startActivity(intent);
                 //Toast.makeText(BookUserDetails.this, "Chat aperta", Toast.LENGTH_SHORT).show();
             }
@@ -107,19 +115,21 @@ public class BookUserDetails extends AppCompatActivity {
 
     }
 
-    private void findUserAndBook(String isbn){
+    private void findBook(String isbn){
         final String Isbn=isbn;
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot ds) {
-                    if(ds.child(Isbn).exists()){
-                        title=ds.child(Isbn).child("title").getValue(String.class);
-                        publisher=ds.child(Isbn).child("publisher").getValue(String.class);
-                        author=ds.child(Isbn).child("author").getValue(String.class);
-                        sedyear=ds.child(Isbn).child("edition_year").getValue(Integer.class).toString();
-                        condition=ds.child(Isbn).child("extra").getValue(String.class);
-                        owner = ds.child(Isbn).child("owner").getValue(String.class);
-                        simage=ds.child(Isbn).child("image").getValue(String.class);
+
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+                    if(ds.getKey().toString().compareTo(Isbn)==0){
+                        title=ds.child("title").getValue(String.class);
+                        publisher=ds.child("publisher").getValue(String.class);
+                        author=ds.child("author").getValue(String.class);
+                        sedyear=ds.child("edition_year").getValue(Integer.class).toString();
+                        condition=ds.child("extra").getValue(String.class);
+                        simage=ds.child("image").getValue(String.class);
+                      
                         simage=simage.replace("image/", "");
                         simage= simage.trim();
 
@@ -133,34 +143,6 @@ public class BookUserDetails extends AppCompatActivity {
                         if(simage!=null){
                             findImageInStorage(simage);
                         }
-
-                        if((owner==null) ||(owner.compareTo("")==0)){
-                            Toast.makeText(BookUserDetails.this, "USERID nulla", Toast.LENGTH_SHORT).show();
-                            //Log.d("USERID", "gggggggggggggggggggggggggg userid nulla");
-                        }else{
-                            //Log.d("USERID", "gggggggggggggggggggggggggg userid NON nulla");
-                        }
-
-                        userdatabase = FirebaseDatabase.getInstance().getReference("Users/" + owner);
-                        userdatabase.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                username = dataSnapshot.child("name").getValue(String.class);
-                                Log.d("USERID", username);
-                                if((username==null)||(username.compareTo("")==0)){
-                                    Toast.makeText(BookUserDetails.this, "USERNAME null", Toast.LENGTH_SHORT).show();
-                                }
-                                nameview.setText(username);
-                                sprofileurl=dataSnapshot.child(owner).child("URLimage").getValue(String.class);
-                                Picasso.with(BookUserDetails.this).load(sprofileurl).transform((Transformation) new PicassoCircleTransformation()).into(profileview);
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });
-
                     }
 
 
@@ -173,6 +155,31 @@ public class BookUserDetails extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void findUser(String isbn){
+        final String Isbn=isbn;
+        userDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds: dataSnapshot.getChildren()){
+                    DataSnapshot books= ds.child("Books");
+                    for(DataSnapshot bookinfo : books.getChildren()){
+                        if(bookinfo.getKey().toString().compareTo(Isbn)==0){
+                            nameview.setText(ds.child("name").getValue(String.class));
+                            String urlimage = ds.child("urlimage").getValue(String.class);
+                            Picasso.with(BookUserDetails.this).load(urlimage).transform((Transformation) new PicassoCircleTransformation()).into(profileview);
+                            userid=ds.getKey();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void findImageInStorage(String simage){
