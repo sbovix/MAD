@@ -20,6 +20,7 @@
         android:layout_height="120dp"
         android:layout_alignParentTop="true"
         android:layout_marginStart="@dimen/fab_margin"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="20px"
         android:src="@drawable/libri" />
 
@@ -28,8 +29,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginEnd="15dp"
+        android:layout_marginRight="15dp"
         android:gravity="center"
         android:text="Book Sharing"
         android:textSize="30dp"
@@ -68,8 +71,8 @@
         android:text="@string/login"
         android:textStyle="normal"
         android:autoSizeTextType="uniform"
-        android:layout_marginLeft="250px"
-        android:layout_marginRight="250px" />
+        android:layout_marginLeft="20px"
+        android:layout_marginRight="20px" />
 
     <TextView
         android:id="@+id/Tv_register"

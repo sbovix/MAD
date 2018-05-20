@@ -47,7 +47,7 @@ public class UserActivity extends AppCompatActivity {
         UserImage = (ImageView) findViewById(R.id.Tv_UserImage);
 
         mAuth = FirebaseAuth.getInstance();
-        dbReference = FirebaseDatabase.getInstance().getReference();
+        dbReference = FirebaseDatabase.getInstance().getReference("/Users/");
 
         showUserProfile();
 

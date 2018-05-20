@@ -77,7 +77,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         View header=navigationView.getHeaderView(0);
 
         mAuth = FirebaseAuth.getInstance();
-        dbReference = FirebaseDatabase.getInstance().getReference();
+        dbReference = FirebaseDatabase.getInstance().getReference("/Users/");
 
         UserImage = (ImageView) header.findViewById(R.id.HUserImage);
         Name = (TextView) header.findViewById(R.id.Name);
@@ -171,12 +171,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         isbn.clear();
         final FirebaseUser user = mAuth.getCurrentUser();
 
-        dbReference=FirebaseDatabase.getInstance().getReference(""+user.getUid()+"/Books");
+        dbReference=FirebaseDatabase.getInstance().getReference("Users/"+user.getUid()+"/Books/");
         dbReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    String simage = ds.child("/image").getValue(String.class);
+                    String simage = ds.child("image").getValue(String.class);
                     String sisbn = ds.getKey();
                     if(simage!=null){
                         simage=simage.replace("image/", "");
