@@ -3,9 +3,8 @@ package com.example.silviabova.mylogin;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.provider.ContactsContract;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,8 +27,10 @@ import com.squareup.picasso.Transformation;
 
 public class BookUserDetails extends AppCompatActivity {
     String isbn;
+
     DatabaseReference databaseReference;
     DatabaseReference userDatabase;
+
     StorageReference storageReference;
     String title;
     String username;
@@ -39,6 +40,7 @@ public class BookUserDetails extends AppCompatActivity {
     String condition;
     String userid;
     String sprofileurl;
+    String owner;
     String simage;
 
     TextView titleview;
@@ -67,6 +69,7 @@ public class BookUserDetails extends AppCompatActivity {
         getSupportActionBar().setIcon(R.drawable.logo);
 
         isbn=getIntent().getStringExtra("ISBN");
+
         databaseReference= FirebaseDatabase.getInstance().getReference("/Books/");
         userDatabase = FirebaseDatabase.getInstance().getReference("/Users/");
         storageReference = FirebaseStorage.getInstance().getReference("/image/");
@@ -89,6 +92,7 @@ public class BookUserDetails extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent= new Intent(BookUserDetails.this, UserShowActivity.class);
                 intent.putExtra("user_id", userid);
+
                 startActivity(intent);
             }
         });
@@ -96,6 +100,7 @@ public class BookUserDetails extends AppCompatActivity {
         message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent intent= new Intent(BookUserDetails.this, ChatActivity.class);
                 intent.putExtra("user_id", userid);
                 startActivity(intent);
@@ -114,6 +119,7 @@ public class BookUserDetails extends AppCompatActivity {
         final String Isbn=isbn;
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
+
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     if(ds.getKey().toString().compareTo(Isbn)==0){
@@ -123,8 +129,11 @@ public class BookUserDetails extends AppCompatActivity {
                         sedyear=ds.child("edition_year").getValue(Integer.class).toString();
                         condition=ds.child("extra").getValue(String.class);
                         simage=ds.child("image").getValue(String.class);
+                      
                         simage=simage.replace("image/", "");
                         simage= simage.trim();
+
+
 
                         titleview.setText(title);
                         publisherview.setText(publisher);
@@ -139,8 +148,6 @@ public class BookUserDetails extends AppCompatActivity {
 
                 }
 
-
-            }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {

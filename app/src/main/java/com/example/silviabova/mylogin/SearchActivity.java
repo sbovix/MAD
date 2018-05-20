@@ -1,10 +1,8 @@
 package com.example.silviabova.mylogin;
 
 import android.content.Intent;
-import android.provider.ContactsContract;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,7 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -26,8 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static android.widget.Toast.LENGTH_SHORT;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -55,12 +50,12 @@ public class SearchActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), "List item " + (i + 1) + " Selected", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(SearchActivity.this, BookUserDetails.class);
                 intent.putExtra("ISBN",isbnList.get(i));
+                //Log.d("ISBN", "ho trovato "+isbnList.get(i));
                 startActivity(intent);
             }
         });
 
-
-        database = FirebaseDatabase.getInstance().getReference("/Books/");
+        database = FirebaseDatabase.getInstance().getReference().child("Books");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -151,6 +146,7 @@ public class SearchActivity extends AppCompatActivity {
 
 
                         boolean found = false;
+                      
                         for (DataSnapshot ds: dataSnapshot.getChildren()){
                             if(ds.child(selected).getValue(String.class).toLowerCase().contains(s.toLowerCase().trim())){
                                 LIST.add(ds.child(selected).getValue(String.class));

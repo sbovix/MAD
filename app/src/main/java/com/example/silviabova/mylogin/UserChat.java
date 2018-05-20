@@ -8,6 +8,7 @@ public class UserChat {
     private String name;
     private String URLimage;
     private String bio;
+    private String userid;
 
     public UserChat(String name, String URLimage,String bio){
         this.name = name;
@@ -40,5 +41,13 @@ public class UserChat {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 }

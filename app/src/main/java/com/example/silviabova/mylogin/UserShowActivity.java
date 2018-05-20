@@ -1,9 +1,8 @@
 package com.example.silviabova.mylogin;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -50,7 +49,7 @@ public class UserShowActivity extends AppCompatActivity {
         message=(ImageButton) findViewById(R.id.contactbutton);
 
 
-        dbReference = FirebaseDatabase.getInstance().getReference();
+        dbReference = FirebaseDatabase.getInstance().getReference("Users/");
 
         showUserProfile(userid);
 
