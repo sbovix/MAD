@@ -1,6 +1,7 @@
 package com.example.silviabova.mylogin;
 
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -63,6 +64,7 @@ public class Barcode_Scanner extends AppCompatActivity implements OnClickListene
     FirebaseStorage storage = FirebaseStorage.getInstance();
     private String title,author,edyear,image;
 
+    @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

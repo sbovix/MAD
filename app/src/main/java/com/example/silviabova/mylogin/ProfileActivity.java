@@ -137,7 +137,7 @@ public class ProfileActivity extends AppCompatActivity {
             });
         }
 
-        Toast.makeText(this, "Information saved", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "Information saved", Toast.LENGTH_SHORT).show();
         finish();
         startActivity(new Intent(this, UserActivity.class));
     }

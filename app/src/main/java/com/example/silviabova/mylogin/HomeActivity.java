@@ -11,13 +11,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -52,13 +52,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private DatabaseReference dbReference;
     private DatabaseReference dbIsbn;
 
-    private GridView gridView;
-    private ArrayList<String> imageStrings = new ArrayList<>();
-    private ArrayList<String> isbn= new ArrayList<>();
+    private RecyclerView rv;
+    private List<String> imageStrings = new ArrayList<>();
+    private List<String> isbn= new ArrayList<>();
+    private List<String> title= new ArrayList<>();
     FirebaseStorage firebaseStorage;
     StorageReference storageReference;
     Bitmap bitmap;
-    ArrayList<Bitmap> books;
+    List<Bitmap> books;
 
 
 
@@ -85,6 +86,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         Name = (TextView) header.findViewById(R.id.Name);
         add = (ImageButton) findViewById(R.id.imageButton);
 
+        rv = (RecyclerView) findViewById(R.id.recycler_view);
+        rv.setHasFixedSize(true);
+        rv.setLayoutManager(new GridLayoutManager(this,2));
+        ImageAdapterGridView adapter = new ImageAdapterGridView(this,imageStrings,isbn,title);
+
         showUserImageName();
 
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -98,6 +104,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         storageReference = firebaseStorage.getReference("image/");
 
         findImage();
+
+        rv.setAdapter(adapter);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,7 +130,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     private void showUserImageName() {
 
@@ -161,6 +168,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             finish();
             startActivity(new Intent(HomeActivity.this, MainActivity.class));
         }
+        if(id==R.id.buttonSet){
+            finish();
+            startActivity(new Intent(HomeActivity.this, SettingActivity.class));
+        }
         if(id==R.id.buttonChat){
             finish();
             startActivity(new Intent(HomeActivity.this, AllChatsActivity.class));
@@ -180,12 +191,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
                     dbReference=FirebaseDatabase.getInstance().getReference("Books/"+ds.getKey()+"/");
-                    dbReference.addValueEventListener(new ValueEventListener() {
+                    dbReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshots) {
                             String simage= dataSnapshots.child("image").getValue(String.class);
                             String sisbn = dataSnapshots.getKey().toString();
-
+                            String stitle = dataSnapshots.child("title").getValue(String.class);
                             if(simage!=null){
                                 simage=simage.replace("image/", "");
                                 simage=simage.trim();
@@ -195,6 +206,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                             if(sisbn!=null){
                                 isbn.add(sisbn);
                                 Log.d("ISBN", sisbn);
+                            }
+                            if(stitle!=null){
+                                title.add(stitle);
+                                Log.d("STITLE", stitle);
                             }
                             findImageInStorage(imageStrings, isbn);
                         }
@@ -227,18 +242,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 public void onSuccess(byte[] bytes) {
                     bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                     books.add(bitmap);
-                    gridView = (GridView) findViewById(R.id.gridview);
-                    gridView.setAdapter(new ImageAdapterGridView(HomeActivity.this, books));
-
-                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            Toast.makeText(getBaseContext(), "Grid item " + (i + 1) + " Selected", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(HomeActivity.this, BookDetails.class);
-                            intent.putExtra("ISBN", isbn2.get(i));
-                            startActivity(intent);
-                        }
-                    });
+//                    gridView = (GridView) findViewById(R.id.gridview);
+//                    gridView.setAdapter(new ImageAdapterGridView(HomeActivity.this, books));
+//                    gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                        @Override
+//                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                            Toast.makeText(getBaseContext(), "Grid item " + (i + 1) + " Selected", Toast.LENGTH_LONG).show();
+//                            Intent intent = new Intent(HomeActivity.this, BookDetails.class);
+//                            intent.putExtra("ISBN", isbn2.get(i));
+//                            startActivity(intent);
+//                        }
+//                    });
                 }
             });
         }

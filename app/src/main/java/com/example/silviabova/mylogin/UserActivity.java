@@ -58,7 +58,7 @@ public class UserActivity extends AppCompatActivity {
                 String sname = dataSnapshot.child("Users").child(user.getUid()).child("name").getValue(String.class);
                 String sage = dataSnapshot.child("Users").child(user.getUid()).child("age").getValue(String.class);
                 String sbio = dataSnapshot.child("Users").child(user.getUid()).child("bio").getValue(String.class);
-                String sURL = dataSnapshot.child("Users").child(user.getUid()).child("URLimage").getValue(String.class);
+                String sURL = dataSnapshot.child("Users").child(user.getUid()).child("urlimage").getValue(String.class);
 
                 name.setText("Name: " + sname);
                 age.setText("Birthday: " + sage);
@@ -102,6 +102,11 @@ public class UserActivity extends AppCompatActivity {
             finish();
             startActivity(new Intent(UserActivity.this, MainActivity.class));
         }
+        if (id == R.id.buttonSet) {
+            // do something here
+            finish();
+            startActivity(new Intent(UserActivity.this, SettingActivity.class));
+        }
         if (id == R.id.buttonLibrary) {
             // do something here
             finish();
@@ -110,6 +115,8 @@ public class UserActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
 
 
