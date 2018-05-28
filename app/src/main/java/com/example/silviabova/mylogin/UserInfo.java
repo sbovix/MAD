@@ -10,12 +10,17 @@ public class UserInfo {
     private String bio;
     private String age;
     private String URLimage;
+    private float rate;
+    private int n_rate;
 
     public UserInfo(String name,String bio, String age, String URLimage){
         this.name = name;
         this.age = age;
         this.bio = bio;
         this.URLimage = URLimage;
+        this.rate = 0;
+        this.n_rate = 0;
+
     }
 
     public String getName() {
@@ -49,4 +54,13 @@ public class UserInfo {
     public void setURLimage(String URLimage) {
         this.URLimage = URLimage;
     }
+
+    public float getRate() {
+        return rate;
+    }
+
+    public int getN_rate() {
+        return n_rate;
+    }
+
 }

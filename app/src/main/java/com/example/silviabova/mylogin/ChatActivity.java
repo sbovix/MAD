@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -31,6 +32,8 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     String mCurrentUserId;
     String UserName,UserPhoto;
+    private RelativeLayout whole;
+    private int preLast;
 
 
     @Override
@@ -39,7 +42,7 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         mRef = FirebaseDatabase.getInstance().getReference();
-        RelativeLayout activity_chat = findViewById(R.id.activity_chat);
+
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -67,6 +70,18 @@ public class ChatActivity extends AppCompatActivity {
 
 
         mChatUser = getIntent().getStringExtra("user_id");
+        mRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                getSupportActionBar().setTitle(dataSnapshot.child("Users").child(mChatUser).child("name").getValue(String.class));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
 
         //Check if the user is already signed in
         mAuth = FirebaseAuth.getInstance();
@@ -82,28 +97,21 @@ public class ChatActivity extends AppCompatActivity {
             displayChatMessage();
         }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
-
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //elimina la barra sopra
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        //permette di mostrare il logo
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
-    //back button in the navigation bar
-    public boolean onOptionsItemSelected(MenuItem item){
-        Intent myIntent = new Intent(getApplicationContext(), AllChatsActivity.class);
-        startActivityForResult(myIntent, 0);
-        finish();
-
-        return true;
-
-    }
 
     private void displayChatMessage(){
-        ListView listOfMessage = (ListView)findViewById(R.id.MessageList);
+        final ListView listOfMessage = (ListView)findViewById(R.id.MessageList);
+        //Visualizza la chat dall'ultimo messaggio ricevuto
+        listOfMessage.post(new Runnable(){
+            public void run() {
+                listOfMessage.setSelection(listOfMessage.getCount() - 1);
+            }});
+
         adapter = new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class,R.layout.list_item,FirebaseDatabase.getInstance().getReference("Users/"+mCurrentUserId+"/Chats/"+mChatUser)) {
             @Override
             protected void populateView(View v, ChatMessage model, int position) {
@@ -112,6 +120,7 @@ public class ChatActivity extends AppCompatActivity {
                 messageText = (TextView) v.findViewById(R.id.message_text);
                 messageUser = (TextView) v.findViewById(R.id.message_user);
                 messageTime = (TextView) v.findViewById(R.id.message_time);
+                whole = (RelativeLayout) v.findViewById(R.id.whole_msg);
 
                 messageText.setText(model.getMessageText());
                 messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",model.getMessageTime()));
@@ -138,6 +147,29 @@ public class ChatActivity extends AppCompatActivity {
         listOfMessage.setAdapter(adapter);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
+//        final Intent myIntent = new Intent(getApplicationContext(), AllChatsActivity.class);
+//        startActivityForResult(myIntent, 0);
+//        finish();
+
+        if (id == R.id.rating_bar){
+            //open RatingBar Activity
+            finish();
+            Intent intent = new Intent(ChatActivity.this, RaitingUsers.class);
+            intent.putExtra("user_id", mCurrentUserId);
+            intent.putExtra("chatUser_id", mChatUser);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_rating, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
 }

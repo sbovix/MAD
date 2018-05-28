@@ -64,6 +64,19 @@
                 android:textColor="#ff000000"
                 android:textIsSelectable="true" />
 
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:scrollbarStyle="outsideOverlay">
+                <EditText
+                    android:id="@+id/book_condition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#ff000000"
+                    android:hint="Book condition . . ."
+                    android:textIsSelectable="true" />
+            </ScrollView>
+
             <LinearLayout
                 android:id="@+id/star_layout"
                 android:layout_width="wrap_content"

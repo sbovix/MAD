@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -40,7 +39,6 @@ public class BookUserDetails extends AppCompatActivity {
     String owner;
     String simage;
 
-    TextView titleview;
     TextView publisherview;
     TextView authorview;
     TextView sedyearview;
@@ -63,13 +61,12 @@ public class BookUserDetails extends AppCompatActivity {
 
         //permette di mostrare il logo
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.logo);
+        //getSupportActionBar().setIcon(R.drawable.logo);
 
         isbn=getIntent().getStringExtra("ISBN");
         databaseReference= FirebaseDatabase.getInstance().getReference("Books/");
         storageReference = FirebaseStorage.getInstance().getReference("/image/");
 
-        titleview =(TextView) findViewById(R.id.booktitle);
         publisherview = (TextView) findViewById(R.id.publisher);
         authorview = (TextView) findViewById(R.id.author);
         sedyearview= (TextView) findViewById(R.id.edyear);
@@ -123,9 +120,8 @@ public class BookUserDetails extends AppCompatActivity {
                         simage=simage.replace("image/", "");
                         simage= simage.trim();
 
+                        getSupportActionBar().setTitle(title);
 
-
-                        titleview.setText(title);
                         publisherview.setText(publisher);
                         authorview.setText(author);
                         sedyearview.setText(sedyear);
@@ -146,12 +142,12 @@ public class BookUserDetails extends AppCompatActivity {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 username = dataSnapshot.child("name").getValue(String.class);
-                                Log.d("USERID", username);
+                                //Log.d("USERID", username);
                                 if((username==null)||(username.compareTo("")==0)){
                                     Toast.makeText(BookUserDetails.this, "USERNAME null", Toast.LENGTH_SHORT).show();
                                 }
-                                nameview.setText(username);
-                                sprofileurl=dataSnapshot.child(owner).child("URLimage").getValue(String.class);
+                                nameview.setText("Contact "+username+"to share the book");
+                                sprofileurl=dataSnapshot.child("urlimage").getValue(String.class);
                                 Picasso.with(BookUserDetails.this).load(sprofileurl).transform((Transformation) new PicassoCircleTransformation()).into(profileview);
                             }
 

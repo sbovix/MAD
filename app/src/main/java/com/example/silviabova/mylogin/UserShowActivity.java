@@ -1,10 +1,15 @@
 package com.example.silviabova.mylogin;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +26,7 @@ public class UserShowActivity extends AppCompatActivity {
     private TextView age;
     private TextView bio;
     private ImageView UserImage;
+    private RatingBar starViews;
     private ImageButton message;
 
     private String userid;
@@ -31,6 +37,7 @@ public class UserShowActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_show);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //elimina la barra sopra
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -39,6 +46,8 @@ public class UserShowActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.logo);
 
+        getSupportActionBar().setTitle("Owner Profile");
+
         userid = getIntent().getStringExtra("UID");
 
         name = (TextView) findViewById(R.id.name);
@@ -46,11 +55,24 @@ public class UserShowActivity extends AppCompatActivity {
         bio = (TextView) findViewById(R.id.bio);
         UserImage = (ImageView) findViewById(R.id.Tv_UserImage);
         message=(ImageButton) findViewById(R.id.contactbutton);
+        starViews = (RatingBar)findViewById(R.id.ratingBar);
 
 
         dbReference = FirebaseDatabase.getInstance().getReference("Users/");
 
         showUserProfile(userid);
+
+        message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+                Intent intent = new Intent(UserShowActivity.this,ChatActivity.class);
+                intent.putExtra("user_id",userid);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     private void showUserProfile(final String userid){
@@ -61,12 +83,18 @@ public class UserShowActivity extends AppCompatActivity {
                 String username = dataSnapshot.child(userid).child("name").getValue(String.class);
                 String userage= dataSnapshot.child(userid).child("age").getValue(String.class);
                 String userbio= dataSnapshot.child(userid).child("bio").getValue(String.class);
-                String url = dataSnapshot.child(userid).child("URLimage").getValue(String.class);
+                String url = dataSnapshot.child(userid).child("urlimage").getValue(String.class);
+                float rate = Float.parseFloat(dataSnapshot.child(userid).child("rate").getValue(String.class));
+
+                Log.d("Stars", String.valueOf(rate));
 
                 name.setText("Name: " + username);
                 age.setText("Birthday: " + userage);
                 bio.setText("Description: " + userbio);
                 Picasso.with(UserShowActivity.this).load(url).transform((Transformation) new PicassoCircleTransformation()).into(UserImage);
+
+                starViews.setRating(rate);
+
 
             }
 
@@ -76,6 +104,14 @@ public class UserShowActivity extends AppCompatActivity {
 
             }
         });
+
+    }
+    //back button in the navigation bar
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent myIntent = new Intent(getApplicationContext(), SearchActivity.class);
+        startActivityForResult(myIntent, 0);
+        finish();
+        return true;
 
     }
 }

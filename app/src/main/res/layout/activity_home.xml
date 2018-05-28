@@ -6,38 +6,18 @@
     android:id="@+id/activityHome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/library"
     tools:context="com.example.silviabova.mylogin.HomeActivity">
-    />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbarStyle="insideOverlay">
-    </ScrollView>
 
-    <GridView
-        android:id="@+id/gridview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:gravity="center"
-        android:foregroundGravity="center"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
-        android:numColumns="auto_fit"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            android:layout_marginTop="10dp">
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="10px"
-        android:layout_height="10px"
-        app:srcCompat="@android:drawable/ic_menu_add"
-        android:layout_marginTop="450dp"
-        android:layout_marginLeft="280dp"
-        android:layout_marginRight="30dp"
-        android:background="@null"
-        android:tint="@color/CartaZucchero"/>
+        </android.support.v7.widget.RecyclerView>
+
 
     <android.support.design.widget.NavigationView
     app:headerLayout="@layout/header"
@@ -49,5 +29,16 @@
     >
 
 </android.support.design.widget.NavigationView>
+
+    <ImageButton
+    android:id="@+id/imageButton"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    app:srcCompat="@drawable/ic_menu_add"
+    android:layout_marginTop="450dp"
+    android:layout_marginLeft="280dp"
+    android:layout_marginRight="30dp"
+    android:background="@null"
+    android:tint="#ffff"/>
 </android.support.v4.widget.DrawerLayout>
 

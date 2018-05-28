@@ -10,10 +10,11 @@ public class UserChat {
     private String bio;
     private String userid;
 
-    public UserChat(String name, String URLimage,String bio){
+    public UserChat(String name, String URLimage,String bio,String userid){
         this.name = name;
         this.bio = bio;
         this.URLimage = URLimage;
+        this.userid = userid;
     }
     public UserChat(){
 

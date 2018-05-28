@@ -111,26 +111,26 @@ public class SearchActivity extends AppCompatActivity {
                         if(selectedItem.compareTo("Titolo")==0 || selectedItem.compareTo("Title")==0 || selectedItem.compareTo("Titre")==0
                                 || selectedItem.compareTo("Título")==0) {
                             selected= "title";
-                            Toast.makeText(SearchActivity.this, selected, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(SearchActivity.this, selected, Toast.LENGTH_SHORT).show();
 
                         }
                         else if (selectedItem.compareTo("Autore")==0 || selectedItem.compareTo("Author")==0 || selectedItem.compareTo("Auteur")==0
                                 || selectedItem.compareTo("Autor")==0) {
                             selected  = "author";
-                            Toast.makeText(SearchActivity.this, selected, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(SearchActivity.this, selected, Toast.LENGTH_SHORT).show();
 
                         }
                         else if (selectedItem.compareTo("Editore")==0 || selectedItem.compareTo("Publisher")==0 || selectedItem.compareTo("Éditeur")==0
                                 || selectedItem.compareTo("Año de edición")==0) {
                             selected  = "publisher";
-                            Toast.makeText(SearchActivity.this, selected, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(SearchActivity.this, selected, Toast.LENGTH_SHORT).show();
 
                         }
 
                         else if (selectedItem.compareTo("Anno")==0 || selectedItem.compareTo("Year")==0 || selectedItem.compareTo("Année")==0
                                 || selectedItem.compareTo("Editor")==0) {
                             selected  = "edition_year";
-                            Toast.makeText(SearchActivity.this, selected, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(SearchActivity.this, selected, Toast.LENGTH_SHORT).show();
 
                         }
 
@@ -150,7 +150,7 @@ public class SearchActivity extends AppCompatActivity {
                         for(DataSnapshot B : dataSnapshot.getChildren()){
                                 if((B.child(selected).getValue().toString().toLowerCase()).contains(s.toLowerCase())){
                                     //Log.d("TROVATO", "fffffffffff TROVATO");
-                                    LIST.add(B.child(selected).getValue().toString());
+                                    LIST.add(B.child("title").getValue().toString());
                                     isbnList.add(B.getKey().toString());
                                     //Log.d("ISBN", "ho trovato "+B.getKey());
                                     //Toast.makeText(SearchActivity.this, "Found", Toast.LENGTH_SHORT).show();

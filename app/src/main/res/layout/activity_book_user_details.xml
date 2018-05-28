@@ -4,47 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="15dp"
     tools:context="com.example.silviabova.mylogin.BookUserDetails">
 
 
     <ImageView
-        android:id="@+id/profileImage"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        app:srcCompat="@drawable/user" />
-
-    <TextView
-        android:id="@+id/username"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_toEndOf="@+id/profileImage"
-        android:layout_toRightOf="@+id/profileImage"
-        android:textColor="@color/CartaZucchero"
-        android:textSize="15dp"
-        android:text="Name" />
-
-    <TextView
-        android:id="@+id/booktitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/profileImage"
-        android:layout_marginTop="20dp"
-        android:text="Title of the selected Book"
-        android:textSize="20dp"
-        android:textColor="#000"
-        android:textStyle="bold" />
-
-    <ImageView
         android:id="@+id/bookimage"
-        android:layout_width="70dp"
-        android:layout_height="100dp"
-        android:layout_below="@+id/booktitle"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
         android:layout_marginTop="21dp"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="20dp"
@@ -82,7 +49,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="160dp"
         android:layout_alignLeft="@+id/bookimage"
         android:layout_alignStart="@+id/bookimage"
         android:layout_below="@+id/bookimage"
@@ -105,6 +72,16 @@
         </LinearLayout>
     </ScrollView>
 
+    <ImageView
+        android:id="@+id/profileImage"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/scrollView4"
+        app:srcCompat="@drawable/user1" />
+
     <ImageButton
         android:id="@+id/chat"
         android:layout_width="wrap_content"
@@ -119,4 +96,17 @@
         android:contentDescription="Contact the user"
         android:tint="@color/CartaZucchero"
         app:srcCompat="@android:drawable/ic_dialog_email" />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scrollView4"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@+id/profileImage"
+        android:layout_toRightOf="@+id/profileImage"
+        android:textColor="@color/CartaZucchero"
+        android:textSize="15dp"
+        android:text="Name" />
+
 </RelativeLayout>

@@ -14,14 +14,21 @@
         android:padding="20px"
         android:id="@+id/relativeLayout">
 
+        <ImageButton
+            android:id="@+id/setImage"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentTop="true"
+            app:srcCompat="@android:drawable/ic_menu_camera" />
+
         <ImageView
+            android:id="@+id/Tv_UserImage"
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:src="@drawable/user1"
-            android:layout_marginTop="20px"
-            android:id="@+id/Tv_UserImage"
+            android:layout_alignTop="@+id/setImage"
             android:foregroundGravity="center"
-            />
+            android:src="@drawable/user1"
+            android:layout_toRightOf="@+id/setImage"/>
         <TextView
             android:id="@+id/name"
             android:layout_width="match_parent"
@@ -33,11 +40,24 @@
             android:textSize="@dimen/fab_margin"
             android:paddingTop="210dp" />
 
+        <EditText
+            android:id="@+id/name_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/Tv_UserImage"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:layout_marginTop="15dp"
+            android:textColor="#fff"
+            android:textSize="@dimen/fab_margin"
+            android:textStyle="italic"
+            android:visibility="gone"/>
+
     </RelativeLayout>
 
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/relativeLayout"
         android:scrollbarStyle="outsideOverlay">
         <RelativeLayout
@@ -57,6 +77,20 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/fab_margin"
                 android:textStyle="italic" />
+            <EditText
+                android:id="@+id/age_edit"
+                android:layout_width="287dp"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/bio"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/fab_margin"
+                android:textStyle="italic"
+                android:visibility="gone"/>
 
 
             <TextView
@@ -77,6 +111,21 @@
 
             </TextView>
 
+            <EditText
+                android:id="@+id/bio_edit"
+                android:layout_width="287dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/age"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/fab_margin"
+                android:textStyle="italic"
+                android:visibility="gone"/>
+
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
@@ -88,8 +137,7 @@
                 android:paddingLeft="20px"
                 android:layout_toStartOf="@+id/age"
                 android:src="@drawable/birth"
-                android:tint="@color/CartaZucchero"
-                tools:ignore="NotSibling" />
+                android:tint="@color/CartaZucchero"/>
 
             <ImageView
                 android:id="@+id/imageView3"
@@ -104,8 +152,8 @@
                 android:src="@drawable/bio"
                 android:tint="@color/CartaZucchero" />
         </RelativeLayout>
-
-
     </ScrollView>
+
+
 
 </RelativeLayout>
