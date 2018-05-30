@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -58,11 +59,12 @@ public class Barcode_Scanner extends AppCompatActivity implements OnClickListene
     private ImageView thumbView;
     private ImageView[] starViews;
     private Bitmap thumbImg;
+    private EditText condition;
     private Book book = new Book();
     private FirebaseDatabase dbUser = FirebaseDatabase.getInstance();
     private FirebaseDatabase dbBook = FirebaseDatabase.getInstance();
     FirebaseStorage storage = FirebaseStorage.getInstance();
-    private String title,author,edyear,image;
+    private String title,author,edyear,image,book_condition;
 
     @SuppressLint("WrongConstant")
     @Override
@@ -80,6 +82,8 @@ public class Barcode_Scanner extends AppCompatActivity implements OnClickListene
         linkBtn.setOnClickListener(this);
         save= (Button)findViewById(R.id.save);
         save.setOnClickListener(this);
+        condition = findViewById(R.id.book_condition);
+
 
         authorText = (TextView)findViewById(R.id.book_author);
         titleText = (TextView)findViewById(R.id.book_title);
@@ -158,10 +162,12 @@ public class Barcode_Scanner extends AppCompatActivity implements OnClickListene
         }
         else if(v.getId()==R.id.save){
             //add book
+            book_condition = condition.getText().toString().trim();
+            book.setBook_condition(book_condition);
             book.saveBookInformation(dbUser,dbBook);
             Intent intent = new Intent(this, MapsActivity.class);
             intent.putExtra("ISBN", book.getIsbn());
-            //finish();
+            finish();
             startActivity(intent);
         }
 
@@ -252,6 +258,8 @@ public class Barcode_Scanner extends AppCompatActivity implements OnClickListene
                 JSONArray bookArray = resultObject.getJSONArray("items");
                 JSONObject bookObject = bookArray.getJSONObject(0);
                 JSONObject volumeObject = bookObject.getJSONObject("volumeInfo");
+
+
 
                 try{ titleText.setText("TITLE: "+volumeObject.getString("title"));
                     title = volumeObject.getString("title");
