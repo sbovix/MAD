@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,7 +32,7 @@ public class ChatActivity extends AppCompatActivity {
     private DatabaseReference mRef;
     private FirebaseAuth mAuth;
     String mCurrentUserId;
-    String UserName,UserPhoto;
+    String UserName,UserPhoto,isbn,rated;
     private RelativeLayout whole;
     private int preLast;
 
@@ -55,21 +56,28 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
-        fab = (FloatingActionButton)findViewById(R.id.fab);
+
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText input = (EditText)findViewById(R.id.input);
-                FirebaseDatabase.getInstance().getReference("Users/"+mCurrentUserId+"/Chats/"+mChatUser).push().setValue(new ChatMessage(input.getText().toString(),
-                        UserName,1));
-                FirebaseDatabase.getInstance().getReference("Users/"+mChatUser+"/Chats/"+mCurrentUserId).push().setValue(new ChatMessage(input.getText().toString(),
-                        UserName,2));
+                EditText input = (EditText) findViewById(R.id.input);
+                FirebaseDatabase.getInstance().getReference("Users/" + mCurrentUserId + "/Chats/" + mChatUser + "/messages").push().setValue(new ChatMessage(input.getText().toString(),
+                        UserName, 1));
+                FirebaseDatabase.getInstance().getReference("Users/" + mChatUser + "/Chats/" + mCurrentUserId + "/messages").push().setValue(new ChatMessage(input.getText().toString(),
+                        UserName, 2));
+
+                FirebaseDatabase.getInstance().getReference("Users/" + mCurrentUserId + "/Chats/" + mChatUser + "/read").setValue(true);
+                FirebaseDatabase.getInstance().getReference("Users/" + mChatUser + "/Chats/" + mCurrentUserId + "/read").setValue(false);
+
                 input.setText("");
             }
         });
 
 
         mChatUser = getIntent().getStringExtra("user_id");
+        isbn = getIntent().getStringExtra("book");
         mRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -86,22 +94,56 @@ public class ChatActivity extends AppCompatActivity {
         //Check if the user is already signed in
         mAuth = FirebaseAuth.getInstance();
         mCurrentUserId = mAuth.getCurrentUser().getUid();
-        mRef.child("/Chats/"+mChatUser);
-        if( mAuth.getCurrentUser()== null){
+        mRef.child("/Chats/" + mChatUser);
+        if (mAuth.getCurrentUser() == null) {
             finish();
             startActivity(new Intent(ChatActivity.this, MainActivity.class));
-        }
-        else{
+        } else {
             //Toast.makeText(this,"Welcome",Toast.LENGTH_SHORT).show();
             //Load content
             displayChatMessage();
         }
 
+
+        FirebaseDatabase.getInstance().getReference("Users/"+mCurrentUserId+"/Chats/"+mChatUser).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (!snapshot.hasChild("book")||snapshot.child("book/isbn").getValue().equals(isbn)) {
+                    FirebaseDatabase.getInstance().getReference("Users/"+mCurrentUserId+"/Chats/"+mChatUser+"/book/isbn").setValue(isbn);
+                    FirebaseDatabase.getInstance().getReference("Users/"+mCurrentUserId+"/Chats/"+mChatUser+"/book/restituito").setValue("0");
+                    FirebaseDatabase.getInstance().getReference("Users/"+mCurrentUserId+"/Chats/"+mChatUser+"/book/rated").setValue("0");
+
+                    FirebaseDatabase.getInstance().getReference("Users/"+mChatUser+"/Chats/"+mCurrentUserId+"/book/isbn").setValue(isbn);
+                    FirebaseDatabase.getInstance().getReference("Users/"+mChatUser+"/Chats/"+mCurrentUserId+"/book/prestato").setValue("0");
+                    FirebaseDatabase.getInstance().getReference("Users/"+mChatUser+"/Chats/"+mCurrentUserId+"/book/rated").setValue("0");
+                    }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //elimina la barra sopra
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-    }
+        FirebaseDatabase.getInstance().getReference("Users/"+mCurrentUserId+"/Chats/"+mChatUser+"/book").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                rated = dataSnapshot.child("rated").getValue(String.class);
+                //Log.d("rate",rated);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        }
 
 
     private void displayChatMessage(){
@@ -112,7 +154,9 @@ public class ChatActivity extends AppCompatActivity {
                 listOfMessage.setSelection(listOfMessage.getCount() - 1);
             }});
 
-        adapter = new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class,R.layout.list_item,FirebaseDatabase.getInstance().getReference("Users/"+mCurrentUserId+"/Chats/"+mChatUser)) {
+        final DatabaseReference db = FirebaseDatabase.getInstance().getReference("Users/"+mCurrentUserId+"/Chats/"+mChatUser);
+
+        adapter = new FirebaseListAdapter<ChatMessage>(this, ChatMessage.class,R.layout.list_item,FirebaseDatabase.getInstance().getReference("Users/"+mCurrentUserId+"/Chats/"+mChatUser+"/messages")) {
             @Override
             protected void populateView(View v, ChatMessage model, int position) {
                 //Get reference to the view of list_item.xml
@@ -124,6 +168,7 @@ public class ChatActivity extends AppCompatActivity {
 
                 messageText.setText(model.getMessageText());
                 messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",model.getMessageTime()));
+                db.child("read").setValue(true);
 
                 if(model.getType() == 1){ //MESSAGE SENT
                     messageText.setGravity(Gravity.LEFT);
@@ -149,20 +194,27 @@ public class ChatActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+        final int id = item.getItemId();
 
 //        final Intent myIntent = new Intent(getApplicationContext(), AllChatsActivity.class);
 //        startActivityForResult(myIntent, 0);
 //        finish();
 
-        if (id == R.id.rating_bar){
-            //open RatingBar Activity
-            finish();
-            Intent intent = new Intent(ChatActivity.this, RaitingUsers.class);
-            intent.putExtra("user_id", mCurrentUserId);
-            intent.putExtra("chatUser_id", mChatUser);
-            startActivity(intent);
+        if(rated.equals("0")){
+            if (id == R.id.rating_bar){
+                //open RatingBar Activity
+                finish();
+                Intent intent = new Intent(ChatActivity.this, RaitingUsers.class);
+                intent.putExtra("user_id", mCurrentUserId);
+                intent.putExtra("chatUser_id", mChatUser);
+                startActivity(intent);
+            }
         }
+        else{
+            Toast.makeText(ChatActivity.this,"User already rated",Toast.LENGTH_LONG);
+        }
+
+
         return super.onOptionsItemSelected(item);
     }
 

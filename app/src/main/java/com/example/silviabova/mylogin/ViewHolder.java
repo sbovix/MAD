@@ -10,6 +10,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
 
@@ -47,8 +51,21 @@ public class ViewHolder extends RecyclerView.Adapter<ViewHolder.UserViewHolder> 
         holder.rv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ChatActivity.class);
+                final Intent intent = new Intent(context, ChatActivity.class);
                 intent.putExtra("user_id", userID.toString().trim());
+                FirebaseDatabase.getInstance().getReference().child("Users/"+userID+"/Chats/book").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String isbn = dataSnapshot.child("isbn").getValue(String.class);
+                        intent.putExtra("book",isbn);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
                 context.startActivity(intent);
             }
         });
