@@ -29,7 +29,7 @@ public class UserShowActivity extends AppCompatActivity {
     private RatingBar starViews;
     private ImageButton message;
 
-    private String userid;
+    private String userid,isbn;
 
     private DatabaseReference dbReference;
 
@@ -68,6 +68,8 @@ public class UserShowActivity extends AppCompatActivity {
                 finish();
                 Intent intent = new Intent(UserShowActivity.this,ChatActivity.class);
                 intent.putExtra("user_id",userid);
+                isbn = intent.getStringExtra("book");
+                intent.putExtra("book", isbn);
                 startActivity(intent);
             }
         });
@@ -109,6 +111,7 @@ public class UserShowActivity extends AppCompatActivity {
     //back button in the navigation bar
     public boolean onOptionsItemSelected(MenuItem item){
         Intent myIntent = new Intent(getApplicationContext(), SearchActivity.class);
+        myIntent.putExtra("book",isbn);
         startActivityForResult(myIntent, 0);
         finish();
         return true;

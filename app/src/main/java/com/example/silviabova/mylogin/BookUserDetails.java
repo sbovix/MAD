@@ -46,7 +46,7 @@ public class BookUserDetails extends AppCompatActivity {
     TextView nameview;
     ImageView profileview;
     ImageView imageView;
-    ImageButton message;
+    ImageButton message,loc;
 
 
 
@@ -75,6 +75,7 @@ public class BookUserDetails extends AppCompatActivity {
         profileview=(ImageView)findViewById(R.id.profileImage);
         imageView=(ImageView) findViewById(R.id.bookimage);
         message=(ImageButton) findViewById(R.id.chat);
+        loc = (ImageButton) findViewById(R.id.location);
 
         findUserAndBook(isbn.toString());
 
@@ -83,6 +84,7 @@ public class BookUserDetails extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent= new Intent(BookUserDetails.this, UserShowActivity.class);
                 intent.putExtra("UID", owner);
+                intent.putExtra("book",isbn);
                 startActivity(intent);
             }
         });
@@ -92,8 +94,18 @@ public class BookUserDetails extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(BookUserDetails.this,ChatActivity.class);
                 intent.putExtra("user_id",owner);
+                intent.putExtra("book",isbn);
                 startActivity(intent);
                 //Toast.makeText(BookUserDetails.this, "Chat aperta", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        loc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(BookUserDetails.this, ShowLocation.class);
+                intent.putExtra("ISBN", isbn);
+                startActivity(intent);
             }
         });
     }
@@ -146,7 +158,7 @@ public class BookUserDetails extends AppCompatActivity {
                                 if((username==null)||(username.compareTo("")==0)){
                                     Toast.makeText(BookUserDetails.this, "USERNAME null", Toast.LENGTH_SHORT).show();
                                 }
-                                nameview.setText("Contact "+username+"to share the book");
+                                nameview.setText("Contact "+username+" to share the book");
                                 sprofileurl=dataSnapshot.child("urlimage").getValue(String.class);
                                 Picasso.with(BookUserDetails.this).load(sprofileurl).transform((Transformation) new PicassoCircleTransformation()).into(profileview);
                             }

@@ -1,8 +1,10 @@
 package com.example.silviabova.mylogin;
 
+import android.Manifest;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
@@ -10,6 +12,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
@@ -55,11 +59,13 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView ImageToSave;
     private Bitmap bitmap1, bitmap2;
     private static final String IMAGE_DIRECTORY = "/MyNewImages";
-    private int GALLERY = 0, CAMERA = 1;
+    private static final int GALLERY = 0, CAMERA = 1, WRITE=2;
     private ImageView image1, image2;
     private String simage;
     private Uri contentURI;
     private ProgressBar mProgressbar;
+    private boolean permissioncamera, writingpermission;
+    private boolean permissiongallery;
     //private final int PICK_IMAGE = 100;
 
     private DatabaseReference databaseReference;
@@ -71,6 +77,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+        declareWritingPermission();
 
         firebaseAuth = FirebaseAuth.getInstance();
         if (firebaseAuth.getCurrentUser() == null) {
@@ -118,6 +125,26 @@ public class ProfileActivity extends AppCompatActivity {
         final String ubio = bio.getText().toString().trim();
         final String uURI;
 
+        if(contentURI==null){
+            final StorageReference storageReference2 = storageReference;
+            StorageReference storageReference= FirebaseStorage.getInstance().getReference(System.currentTimeMillis()+"image.jpeg");
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap2.compress(Bitmap.CompressFormat.PNG, 100, baos);
+            byte[] b = baos.toByteArray();
+            storageReference.putBytes(b).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Log.d("URIII",taskSnapshot.getDownloadUrl().toString() );
+                    UserInfo userInfo = new UserInfo(uname,ubio,uage, taskSnapshot.getDownloadUrl().toString());
+                    Toast.makeText(ProfileActivity.this, "Image saved", Toast.LENGTH_SHORT).show();
+                    FirebaseUser user = firebaseAuth.getCurrentUser();
+
+                    databaseReference.child("Users").child(user.getUid()).setValue(userInfo);
+                }
+            });
+
+        }
+
         if(contentURI != null){
             StorageReference ref = storageReference.child( System.currentTimeMillis() + "." + getFileExtention(contentURI));
             ref.putFile(contentURI).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -137,7 +164,7 @@ public class ProfileActivity extends AppCompatActivity {
             });
         }
 
-       // Toast.makeText(this, "Information saved", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Information saved", Toast.LENGTH_SHORT).show();
         finish();
         startActivity(new Intent(this, UserActivity.class));
     }
@@ -175,10 +202,47 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void takePhotoFromCamera() {
-        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, CAMERA);
+        declareCameraPermission();
+        if(permissioncamera){
+            Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, CAMERA);
+        }
+    }
+    private void declareWritingPermission(){
+        if(ContextCompat.checkSelfPermission(this.getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED){
+            writingpermission=true;
+        }else{
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},WRITE);
+        }
     }
 
+    private void declareCameraPermission(){
+        if(ContextCompat.checkSelfPermission(this.getApplicationContext(), Manifest.permission.CAMERA)== PackageManager.PERMISSION_GRANTED){
+            permissioncamera=true;
+        }else{
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},CAMERA);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        //super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        //mLocationPErmissionGranted=false;
+        permissioncamera=false;
+        writingpermission=false;
+        switch (requestCode){
+            case CAMERA: {
+                if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    permissioncamera=true;
+                }
+            }
+            case WRITE: {
+                if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    writingpermission=true;
+                }
+            }
+        }
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -213,6 +277,11 @@ public class ProfileActivity extends AppCompatActivity {
             image2.setImageBitmap(bitmap2);
             Toast.makeText(ProfileActivity.this, "Image Saved!", Toast.LENGTH_SHORT).show();
             simage = savingImage(bitmap2);
+
+
+
+
+
         }
     }
 
@@ -261,4 +330,6 @@ public class ProfileActivity extends AppCompatActivity {
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cr.getType(uri));
     }
+
+
 }

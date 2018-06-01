@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,7 +39,7 @@ public class BookDetails extends AppCompatActivity {
     TextView condition;
     TextView tisbn;
     ImageView image;
-    Button loc;
+    ImageButton loc;
 
 
     @Override
@@ -61,7 +61,7 @@ public class BookDetails extends AppCompatActivity {
         condition = (TextView) findViewById(R.id.bookcondition);
         image = (ImageView) findViewById(R.id.imageView);
         tisbn = (TextView) findViewById(R.id.isbn);
-        loc=(Button) findViewById(R.id.loc);
+        loc=(ImageButton) findViewById(R.id.location);
         tisbn.setText(isbn);
         storageReference = FirebaseStorage.getInstance().getReference("image/");
 

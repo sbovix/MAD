@@ -94,14 +94,25 @@
             android:textSize="20dp" />
     </ScrollView>
 
-    <Button
+    <TextView
         android:id="@+id/loc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/scrollView2"
+        android:layout_toEndOf="@+id/edyear"
+        android:layout_toRightOf="@+id/edyear"
+        android:text="Show Book's Location"
+        android:gravity="center"/>
+
+    <ImageButton
+        android:id="@+id/location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/scrollView2"
         android:layout_alignLeft="@+id/edyear"
         android:layout_alignStart="@+id/edyear"
-        android:text="Show Book's Location" />
+        android:background="#ffff"
+        app:srcCompat="@drawable/ic_location" />
 
 
 </RelativeLayout>

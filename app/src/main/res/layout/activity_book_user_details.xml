@@ -47,6 +47,29 @@
         android:layout_below="@+id/publisher"
         android:text="Edition Year" />
 
+    <TextView
+        android:id="@+id/loc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/location"
+        android:layout_marginLeft="17dp"
+        android:layout_marginStart="17dp"
+        android:layout_toEndOf="@+id/chat"
+        android:layout_toRightOf="@+id/chat"
+        android:gravity="center"
+        android:text="Show Book's Location" />
+
+    <ImageButton
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/edyear"
+        android:layout_alignStart="@+id/edyear"
+        android:layout_below="@+id/edyear"
+        android:layout_marginTop="31dp"
+        android:background="#ffff"
+        app:srcCompat="@drawable/ic_location" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="160dp"
@@ -76,10 +99,11 @@
         android:id="@+id/profileImage"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_alignLeft="@+id/scrollView4"
+        android:layout_alignStart="@+id/scrollView4"
         android:layout_below="@+id/scrollView4"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
         app:srcCompat="@drawable/user1" />
 
     <ImageButton
@@ -102,11 +126,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/scrollView4"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginStart="21dp"
         android:layout_toEndOf="@+id/profileImage"
         android:layout_toRightOf="@+id/profileImage"
+        android:text="Name"
         android:textColor="@color/CartaZucchero"
-        android:textSize="15dp"
-        android:text="Name" />
+        android:textSize="15dp" />
 
 </RelativeLayout>

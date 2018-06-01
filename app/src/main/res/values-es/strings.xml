@@ -18,7 +18,7 @@
     <string name="ed">Año de edición</string>
     <string name="condition">Conditions du livre</string>
     <string name="scan">Escanear un libro</string>
-
+    <string name="no">NO</string>
 
 
     <string-array name ="field">

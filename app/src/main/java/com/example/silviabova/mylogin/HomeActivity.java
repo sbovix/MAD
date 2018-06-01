@@ -17,7 +17,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -93,7 +92,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         showUserImageName();
 
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        Intent notificatioIntent = new Intent(this, Notification.class);
+        startService(notificatioIntent);
+
+        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.logo);
@@ -140,8 +142,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                String sname = dataSnapshot.child("Users").child(user.getUid()).child("name").getValue(String.class);
-                String sURL = dataSnapshot.child("Users").child(user.getUid()).child("urlimage").getValue(String.class);
+                String sname = dataSnapshot.child(user.getUid()).child("name").getValue(String.class);
+                String sURL = dataSnapshot.child(user.getUid()).child("urlimage").getValue(String.class);
 
                 Name.setText(sname);
 
